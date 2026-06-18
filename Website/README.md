@@ -2,8 +2,8 @@
 
 This folder contains the static public website for `agely.app`.
 
-The Agely iOS app source lives in a separate private repository. This repository should contain
-only public website assets and policy/support content.
+The Agely iOS app source lives in a separate private repository. The public website repository should
+contain only public website assets and policy/support content.
 
 Published URLs:
 
