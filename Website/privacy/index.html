@@ -31,13 +31,13 @@
             <h1>Agely Privacy Policy</h1>
           </div>
         </div>
-        <p class="lede">Agely is designed to keep the personal details you enter in the app on your device or in your private iCloud account, while using limited linked telemetry to improve reliability and understand product usage.</p>
-        <p class="meta">Last updated: June 22, 2026</p>
+        <p class="lede">Agely is designed to keep the personal details you enter in the app on your device or in your private iCloud account, while using limited anonymous telemetry to improve reliability and understand product usage.</p>
+        <p class="meta">Last updated: June 29, 2026</p>
       </section>
 
       <article class="content">
         <div class="notice">
-          <p><strong>Short version:</strong> Agely does not sell your data, does not use third-party advertising, and does not track you across other companies' apps or websites. Agely collects linked app-owned identifiers, usage data, and diagnostics for analytics, app functionality, support, debugging, crash reporting, and reliability. You can turn off analytics and diagnostics sharing in Agely Settings.</p>
+          <p><strong>Short version:</strong> Agely does not sell your data, does not use third-party advertising, and does not track you across other companies' apps or websites. Agely collects limited identifiers, usage data, and diagnostics for analytics, app functionality, debugging, crash reporting, and reliability. Agely does not link this telemetry to you or to the contact details you save in the app. You can turn off analytics and diagnostics sharing in Agely Settings.</p>
         </div>
 
         <div class="summary-grid" aria-label="Privacy summary">
@@ -46,8 +46,8 @@
             <span>Contacts, birthdays, notes, groups, notification preferences, and photos are stored locally and, if enabled, synced through your private iCloud account.</span>
           </div>
           <div class="summary-item">
-            <strong>Linked telemetry</strong>
-            <span>Agely uses app-owned user and device identifiers so analytics and diagnostics can be understood across sessions and, when iCloud sync is active, across your devices.</span>
+            <strong>Not-linked telemetry</strong>
+            <span>Agely does not create app-owned Diagnostics User IDs or Diagnostics Device IDs, and does not use telemetry to identify you.</span>
           </div>
           <div class="summary-item">
             <strong>Telemetry choice</strong>
@@ -68,16 +68,15 @@
 
         <section class="policy-section" aria-labelledby="telemetry">
           <h2 id="telemetry">Analytics And Diagnostics Agely Collects</h2>
-          <p>Agely collects limited linked telemetry to understand product usage, improve reliability, diagnose issues, and provide support. This telemetry may include:</p>
+          <p>Agely collects limited anonymous telemetry to understand product usage, improve reliability, and diagnose issues. This telemetry may include:</p>
           <ul>
-            <li>an app-generated Diagnostics User ID</li>
-            <li>an app-generated Diagnostics Device ID</li>
+            <li>service-provider anonymous identifiers needed to operate analytics and crash reporting</li>
             <li>app version, build, environment, operating system version, device type, and device model</li>
             <li>screen and feature usage events, such as which app areas are opened or which workflows succeed or fail</li>
             <li>aggregate counts, booleans, durations, coarse status values, and sanitized error categories</li>
             <li>crash reports, performance diagnostics, and non-fatal diagnostic events</li>
           </ul>
-          <p>Agely treats this telemetry as linked to you because the app-generated identifiers allow events and diagnostics to be associated with the same app user or install over time.</p>
+          <p>Agely treats this telemetry as not linked to you because the app does not add app-owned user or device identifiers, does not send contact content, and does not connect analytics or crash reports to support requests or iCloud account information. Agely is designed so the App Store data categories Identifiers, Usage Data, and Diagnostics can be listed as Data Not Linked to You.</p>
           <p>You can turn off <strong>Share Analytics &amp; Diagnostics</strong> in Agely Settings. Turning it off stops Agely from sending future analytics events, non-fatal diagnostics, and crash reports from that device. It does not delete telemetry that was already collected before the setting was turned off.</p>
         </section>
 
@@ -89,6 +88,7 @@
             <li>birthdays, birth years, ages for specific contacts, or raw notification dates and times</li>
             <li>notes text, search text, filter text, imported address-book contents, or other free-form text you enter</li>
             <li>photos, image bytes, image filenames, crop rectangles, or photo identifiers</li>
+            <li>app-owned Diagnostics User IDs, app-owned Diagnostics Device IDs, or other Agely-generated telemetry IDs</li>
             <li>Apple ID, iCloud email address, CloudKit record IDs, IDFA, IDFV, device name, or precise location</li>
           </ul>
         </section>
@@ -98,10 +98,10 @@
           <p>Agely uses service providers to operate and improve the app:</p>
           <ul>
             <li><strong>Apple iCloud and CloudKit</strong> provide optional sync for your Agely app data through your private iCloud account.</li>
-            <li><strong>PostHog</strong> processes linked product analytics, app lifecycle events, screen events, structured logs, retention analysis, funnels, paths, and related diagnostic context.</li>
+            <li><strong>PostHog</strong> processes anonymous product analytics, app lifecycle events, screen events, aggregate diagnostic events, retention analysis, funnels, paths, and related diagnostic context.</li>
             <li><strong>Firebase Crashlytics</strong> processes crash reports, non-fatal diagnostics, and related crash debugging context.</li>
           </ul>
-          <p>These providers process data on Agely's behalf or as part of platform services used by Agely. Agely does not sell your personal information.</p>
+          <p>These providers process data on Agely's behalf or as part of platform services used by Agely. They may create operational identifiers for analytics or crash-report delivery, but Agely does not expose those identifiers in Settings, join them to app content, or use them to identify you in support workflows. Agely does not sell your personal information.</p>
         </section>
 
         <section class="policy-section" aria-labelledby="purposes">
@@ -111,7 +111,7 @@
             <li>to provide app functionality, including local storage, iCloud sync, birthday calculations, groups, photos, settings, and notifications</li>
             <li>to understand app usage, retention, lifecycle behavior, funnels, paths, and feature health</li>
             <li>to diagnose crashes, performance issues, sync problems, and unexpected errors</li>
-            <li>to respond to support, access, deletion, or correction requests</li>
+            <li>to respond to support and privacy requests using information you choose to provide</li>
             <li>to maintain app security, integrity, and operational reliability</li>
           </ul>
         </section>
@@ -119,7 +119,7 @@
         <section class="policy-section" aria-labelledby="retention">
           <h2 id="retention">Retention</h2>
           <p>App data stored on your device remains there until you delete it, delete the app, or change device/iCloud settings that affect storage. If you use iCloud sync, synced app data is also subject to Apple's iCloud and CloudKit behavior for your account.</p>
-          <p>Agely keeps analytics and diagnostic telemetry only as long as needed for app functionality, analytics, support, debugging, reliability, security, and operational records, unless a longer retention period is required or permitted by law. Crash diagnostic retention may also depend on Firebase Crashlytics' retention practices.</p>
+          <p>Agely keeps analytics and diagnostic telemetry only as long as needed for app functionality, analytics, debugging, reliability, security, and operational records, unless a longer retention period is required or permitted by law. Crash diagnostic retention may also depend on Firebase Crashlytics' retention practices.</p>
         </section>
 
         <section class="policy-section" aria-labelledby="choices">
@@ -129,14 +129,14 @@
             <li>You can manage iCloud availability and app data sync through iOS and iCloud settings.</li>
             <li>You can turn off Share Analytics &amp; Diagnostics in Agely Settings to stop future analytics and crash reporting from that device.</li>
             <li>You can delete app data you created inside Agely using the app's controls.</li>
-            <li>You can request access to, deletion of, or correction of Agely telemetry associated with your Diagnostics IDs.</li>
+            <li>You can make privacy requests about information Agely can reasonably locate. Because Agely does not link telemetry to app-owned user identifiers, it may not be possible to locate analytics or diagnostics for one person.</li>
           </ul>
         </section>
 
         <section class="policy-section" aria-labelledby="requests">
           <h2 id="requests">Access, Deletion, And Correction Requests</h2>
-          <p>To make a privacy request, email <a href="mailto:privacy@agely.app">privacy@agely.app</a>. If you can open Agely, include the Diagnostics User ID and Diagnostics Device ID from Agely Settings so the correct telemetry can be located.</p>
-          <p>Do not send contact names, birthdays, photos, notes, Apple ID, iCloud email address, or other app content unless it is necessary for your request.</p>
+          <p>To make a privacy request, email <a href="mailto:privacy@agely.app">privacy@agely.app</a>. If your request relates to a crash, bug, or diagnostic event, include the app version, iOS version, device model, approximate date and time, and a short description when you can.</p>
+          <p>Do not send contact names, birthdays, photos, notes, Apple ID, iCloud email address, or other app content unless it is necessary for your request. Agely does not provide Diagnostics IDs in Settings because telemetry is not linked to an app-owned user or device identifier.</p>
         </section>
 
         <section class="policy-section" aria-labelledby="children">
