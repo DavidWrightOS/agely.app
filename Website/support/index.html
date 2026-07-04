@@ -4,8 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact Us | Agely</title>
-    <meta name="description" content="Contact Agely.">
+    <meta name="description" content="Contact Agely for help, bug reports, feature requests, and privacy questions.">
+    <link rel="canonical" href="https://agely.app/support/">
+    <meta property="og:title" content="Contact Us | Agely">
+    <meta property="og:description" content="Get help with Agely, report a bug, request a feature, or ask a privacy question.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://agely.app/support/">
+    <meta property="og:site_name" content="Agely">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Contact Us | Agely">
+    <meta name="twitter:description" content="Get help with Agely, report a bug, request a feature, or ask a privacy question.">
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/assets/agely-icon.png">
     <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body>
@@ -16,50 +26,71 @@
           <span>Agely</span>
         </a>
         <nav class="nav-links" aria-label="Primary">
+          <a href="/">Home</a>
           <a href="/privacy/">Privacy</a>
           <a href="/support/" aria-current="page">Contact Us</a>
         </nav>
       </div>
     </header>
 
-    <main class="site-shell">
-      <section class="hero">
-        <div class="hero-lockup">
-          <img src="/assets/agely-icon.png" alt="" width="86" height="86">
-          <div>
+    <main>
+      <section class="page-hero section-bleed">
+        <div class="site-shell support-hero-grid">
+          <div class="animate-on-scroll fade-up">
             <p class="eyebrow">Contact Us</p>
-            <h1>Contact Agely</h1>
+            <h1>How can we help?</h1>
+            <p class="lede">Send questions, bug reports, feature ideas, and privacy requests. A few details help make support faster and more useful.</p>
+          </div>
+          <div class="support-note animate-on-scroll fade-left stagger-1">
+            <strong>Helpful details</strong>
+            <span>App version, iOS version, device model, approximate time, and what you expected to happen.</span>
           </div>
         </div>
-        <p class="lede">For help, bug reports, and feature requests, send an email with the app version, iOS version, device model, approximate date and time, and a short description of the request.</p>
       </section>
 
-      <section class="content">
-        <div class="summary-grid" aria-label="Contact options">
-          <a class="summary-item" href="mailto:support@agely.app">
-            <strong>Contact Us</strong>
-            <span>General help, troubleshooting, and privacy request routing.</span>
+      <section class="site-shell content">
+        <div class="summary-grid contact-options" aria-label="Contact options">
+          <a class="summary-item animate-on-scroll fade-up" href="mailto:support@agely.app">
+            <strong>General Help</strong>
+            <span>Questions, troubleshooting, and help finding the right contact path.</span>
           </a>
-          <a class="summary-item" href="mailto:support@agely.app?subject=Agely%20Bug%20Report">
+          <a class="summary-item animate-on-scroll fade-up stagger-1" href="mailto:support@agely.app?subject=Agely%20Bug%20Report">
             <strong>Bug Reports</strong>
             <span>Include what happened, what you expected, and whether it happens repeatedly.</span>
           </a>
-          <a class="summary-item" href="mailto:support@agely.app?subject=Agely%20Feature%20Request">
+          <a class="summary-item animate-on-scroll fade-up stagger-2" href="mailto:support@agely.app?subject=Agely%20Feature%20Request">
             <strong>Feature Requests</strong>
             <span>Describe the workflow you want Agely to support and why it matters.</span>
           </a>
-          <a class="summary-item" href="mailto:privacy@agely.app">
+          <a class="summary-item animate-on-scroll fade-up stagger-3" href="mailto:privacy@agely.app">
             <strong>Privacy</strong>
-            <span>privacy@agely.app</span>
+            <span>Questions or requests about Agely data, analytics, diagnostics, or privacy choices.</span>
           </a>
-          <a class="summary-item" href="/privacy/">
+          <a class="summary-item animate-on-scroll fade-up stagger-4" href="/privacy/">
             <strong>Privacy Policy</strong>
             <span>Read how Agely handles app data, telemetry, iCloud sync, and diagnostics.</span>
           </a>
         </div>
 
-        <div class="callout">
-          <p>Agely does not provide Diagnostics IDs in Settings because analytics and diagnostics are not linked to you. The personal contact data you save in Agely is not included in those reports. For bug reports and privacy requests, include the app version, iOS version, device model, approximate date and time, and a short description when you can. Please do not include contact names, birthdays, photos, notes, or other Agely content unless it is needed for your request.</p>
+        <div class="support-detail-grid">
+          <div class="detail-panel animate-on-scroll fade-right">
+            <h2>For the clearest bug report</h2>
+            <ul class="check-list">
+              <li>What you were trying to do.</li>
+              <li>What happened instead.</li>
+              <li>Whether it happens every time.</li>
+              <li>Your app version, iOS version, and device model.</li>
+            </ul>
+          </div>
+          <div class="detail-panel animate-on-scroll fade-left stagger-1">
+            <h2>For privacy requests</h2>
+            <p>Please avoid sending contact names, birthdays, photos, notes, Apple ID, iCloud email address, or other app content unless it is needed for your request.</p>
+            <p>Privacy requests can be sent directly to <a href="mailto:privacy@agely.app">privacy@agely.app</a>.</p>
+          </div>
+        </div>
+
+        <div class="callout animate-on-scroll scale-in">
+          <p>Agely does not provide Diagnostics IDs in Settings because analytics and diagnostics are not linked to you. The personal contact data you save in Agely is not included in those reports.</p>
         </div>
       </section>
     </main>
@@ -68,10 +99,12 @@
       <div class="site-shell footer-inner">
         <span>&copy; 2026 Agely</span>
         <div class="footer-links">
+          <a href="/">Home</a>
           <a href="/privacy/">Privacy</a>
           <a href="mailto:support@agely.app">support@agely.app</a>
         </div>
       </div>
     </footer>
+    <script src="/assets/animations.js" defer></script>
   </body>
 </html>

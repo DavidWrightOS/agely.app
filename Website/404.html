@@ -6,6 +6,7 @@
     <title>Page Not Found | Agely</title>
     <meta name="description" content="Agely page not found.">
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/assets/agely-icon.png">
     <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body>
@@ -16,22 +17,36 @@
           <span>Agely</span>
         </a>
         <nav class="nav-links" aria-label="Primary">
+          <a href="/">Home</a>
           <a href="/privacy/">Privacy</a>
           <a href="/support/">Contact Us</a>
         </nav>
       </div>
     </header>
 
-    <main class="site-shell">
-      <section class="hero">
+    <main class="site-shell not-found-page">
+      <section class="page-hero animate-on-scroll scale-in">
+        <img src="/assets/agely-icon.png" alt="" width="82" height="82" class="hero-icon">
         <p class="eyebrow">404</p>
         <h1>Page Not Found</h1>
-        <p class="lede">The page you're looking for is not available.</p>
-      </section>
-
-      <section class="content">
-        <p><a href="/">Go to Agely home</a></p>
+        <p class="lede">The page you are looking for is not available. Agely is still here to help you remember what matters.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/">Go to Agely Home</a>
+          <a class="button button-secondary" href="/support/">Contact Us</a>
+        </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-shell footer-inner">
+        <span>&copy; 2026 Agely</span>
+        <div class="footer-links">
+          <a href="/privacy/">Privacy</a>
+          <a href="/support/">Contact Us</a>
+          <a href="mailto:support@agely.app">support@agely.app</a>
+        </div>
+      </div>
+    </footer>
+    <script src="/assets/animations.js" defer></script>
   </body>
 </html>
