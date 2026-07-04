@@ -39,6 +39,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   font-size: 17px;
   line-height: 1.62;
 }
@@ -995,12 +996,9 @@ li {
   transform: translateY(28px);
 }
 
-.js .fade-left {
-  transform: translateX(28px);
-}
-
+.js .fade-left,
 .js .fade-right {
-  transform: translateX(-28px);
+  transform: translateY(28px);
 }
 
 .js .scale-in {
@@ -1143,10 +1141,6 @@ li {
     flex-direction: column;
   }
 
-  .js .fade-left,
-  .js .fade-right {
-    transform: translateY(28px);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
