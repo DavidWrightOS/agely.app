@@ -11,12 +11,17 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://agely.app/">
     <meta property="og:site_name" content="Agely">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://agely.app/assets/social-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Agely app preview showing age and birthday tracking on iPhone.">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Agely | Birthday and Age Tracking">
     <meta name="twitter:description" content="A simple, private iPhone app for remembering ages and birthdays.">
+    <meta name="twitter:image" content="https://agely.app/assets/social-preview.png">
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260704d">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260704e">
   </head>
   <body>
     <header class="site-header">
@@ -39,10 +44,18 @@
           <div class="hero-copy animate-on-scroll fade-up">
             <p class="eyebrow">Birthday and age tracking</p>
             <h1>Remember the ages and birthdays that matter.</h1>
-            <p class="lede">Agely keeps important people, birthdays, notes, photos, groups, and reminders in one calm, private iPhone app.</p>
+            <p class="lede">Open Agely to see every saved age, upcoming birthday, private reminder, and note in one calm iPhone app.</p>
+            <div class="hero-proof" aria-label="Agely highlights">
+              <span><strong>Ages</strong> without mental math</span>
+              <span><strong>Birthdays</strong> before they sneak up</span>
+              <span><strong>Reminders</strong> that stay private</span>
+            </div>
             <div class="hero-actions" aria-label="Primary actions">
               <!-- APP_STORE_URL -->
-              <span class="button button-primary" aria-disabled="true">Coming soon on the App Store</span>
+              <span class="availability-badge" aria-label="Agely is coming soon to the App Store">
+                <span class="availability-dot" aria-hidden="true"></span>
+                Coming soon for iPhone
+              </span>
               <a class="button button-secondary" href="/support/">Contact Us</a>
             </div>
           </div>
@@ -96,11 +109,16 @@
                     </div>
                     <b>11y</b>
                   </div>
+                  <div class="screen-tabs" aria-hidden="true">
+                    <span class="active">Ages</span>
+                    <span>Upcoming</span>
+                    <span>Calculator</span>
+                  </div>
                 </div>
               </div>
               <div class="floating-card floating-card-one animate-float" aria-hidden="true">
-                <strong>Next birthday</strong>
-                <span>Emma - 12 days</span>
+                <strong>Next up</strong>
+                <span>Emma turns 9 in 12 days</span>
               </div>
               <div class="floating-card floating-card-two animate-float-delay" aria-hidden="true">
                 <strong>Reminder set</strong>
@@ -288,7 +306,10 @@
           <p>Agely is coming soon to the App Store for iPhone.</p>
           <div class="hero-actions">
             <!-- APP_STORE_URL -->
-            <span class="button button-primary" aria-disabled="true">Coming soon on the App Store</span>
+            <span class="availability-badge" aria-label="Agely is coming soon to the App Store">
+              <span class="availability-dot" aria-hidden="true"></span>
+              Coming soon for iPhone
+            </span>
             <a class="button button-secondary" href="/support/">Contact Us</a>
           </div>
         </div>
@@ -305,6 +326,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260704d" defer></script>
+    <script src="/assets/animations.js?v=20260704e" defer></script>
   </body>
 </html>
