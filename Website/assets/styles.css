@@ -64,6 +64,11 @@ a:hover {
   margin: 0 auto;
 }
 
+/* Keep anchor targets (e.g. /#features) visible below the sticky header after in-page jumps. */
+[id] {
+  scroll-margin-top: 92px;
+}
+
 .section-bleed {
   position: relative;
   overflow: hidden;
@@ -162,18 +167,19 @@ h1,
 h2,
 h3 {
   line-height: 1.08;
-  letter-spacing: 0;
+  /* Large display sizes read tighter with slight negative tracking, matching SF Pro Display. */
+  letter-spacing: -0.018em;
 }
 
 h1 {
   margin: 0;
   max-width: 760px;
-  font-size: clamp(42px, 7vw, 74px);
+  font-size: clamp(40px, 5.2vw, 64px);
 }
 
 h2 {
   margin: 0;
-  font-size: clamp(32px, 4.4vw, 52px);
+  font-size: clamp(30px, 3.6vw, 46px);
 }
 
 h3 {
@@ -314,25 +320,28 @@ p {
   width: min(100%, 326px);
 }
 
-.phone-frame::before {
-  content: "";
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  z-index: 2;
-  width: 98px;
-  height: 25px;
-  transform: translateX(-50%);
-  border-radius: 0 0 15px 15px;
-  background: #090a0d;
-}
-
 .phone-frame-media {
   overflow: hidden;
 }
 
-.phone-frame-media::before {
-  content: none;
+/*
+ * Zoomed-in UI excerpt card. Used where a full device frame would repeat a
+ * screenshot already shown elsewhere on the page; the tight crop focuses on
+ * the detail the section copy is describing.
+ */
+.detail-frame {
+  width: min(100%, 470px);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f2f1f6;
+  box-shadow: var(--shadow-lg);
+}
+
+.detail-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .app-shot {
@@ -343,180 +352,6 @@ p {
   background: #f5f4ef;
   object-fit: cover;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
-}
-
-.phone-status {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 28px;
-  padding: 0 17px;
-  color: #f7f7f7;
-  font-size: 11px;
-  font-weight: 760;
-}
-
-.status-dots,
-.status-dots::before,
-.status-dots::after {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: currentColor;
-}
-
-.status-dots {
-  position: relative;
-}
-
-.status-dots::before,
-.status-dots::after {
-  content: "";
-  position: absolute;
-  top: 0;
-}
-
-.status-dots::before {
-  left: -8px;
-}
-
-.status-dots::after {
-  right: -8px;
-}
-
-.app-screen {
-  min-height: 560px;
-  overflow: hidden;
-  border-radius: 31px;
-  background: #f5f4ef;
-  padding: 24px 14px 18px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
-}
-
-.phone-frame-large .app-screen {
-  min-height: 632px;
-}
-
-.screen-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.screen-title {
-  color: #171a22;
-  font-size: 24px;
-  font-weight: 820;
-}
-
-.screen-icon {
-  min-width: 32px;
-  height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  color: #2442a9;
-  background: white;
-  font-size: 15px;
-  font-weight: 800;
-  box-shadow: var(--shadow-sm);
-}
-
-.filter-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-
-.filter-pill {
-  display: inline-flex;
-  align-items: center;
-  height: 34px;
-  border-radius: 999px;
-  padding: 0 12px;
-  background: white;
-  color: #5c6472;
-  font-size: 12px;
-  font-weight: 760;
-}
-
-.filter-pill.active {
-  color: white;
-  background: #2442a9;
-}
-
-.contact-row,
-.mini-row,
-.timeline-row {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  min-height: 66px;
-  margin: 9px 0;
-  border-radius: 18px;
-  padding: 10px 11px;
-  background: white;
-  box-shadow: 0 1px 0 rgba(30, 33, 40, 0.04), 0 9px 20px rgba(30, 33, 40, 0.06);
-}
-
-.featured-row,
-.mini-row.active,
-.timeline-row.today {
-  background: linear-gradient(135deg, #ffffff, #eef3ff);
-  outline: 1px solid rgba(54, 87, 214, 0.16);
-}
-
-.avatar {
-  width: 42px;
-  height: 42px;
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  color: white;
-  font-size: 12px;
-  font-weight: 820;
-}
-
-.avatar.coral { background: #d85f45; }
-.avatar.teal { background: #0f766e; }
-.avatar.gold { background: #a7651c; }
-.avatar.blue { background: #3657d6; }
-
-.contact-row div:not(.avatar) {
-  min-width: 0;
-  flex: 1;
-}
-
-.contact-row strong,
-.mini-row span,
-.timeline-row span {
-  display: block;
-  color: #202531;
-  font-size: 14px;
-  line-height: 1.2;
-}
-
-.contact-row span {
-  display: block;
-  margin-top: 4px;
-  color: #747b88;
-  font-size: 12px;
-  line-height: 1.2;
-}
-
-.contact-row b,
-.mini-row strong,
-.timeline-row b {
-  margin-left: auto;
-  color: #2442a9;
-  font-size: 13px;
-  white-space: nowrap;
 }
 
 .floating-card {
@@ -546,43 +381,19 @@ p {
   font-size: 12px;
 }
 
+/*
+ * Offsets keep the cards inside the hero's clipped bounds at the 1281px
+ * breakpoint where they first appear; larger offsets get cut by the
+ * section's overflow: hidden on narrower desktop windows.
+ */
 .floating-card-one {
   top: 86px;
-  right: -120px;
+  right: -84px;
 }
 
 .floating-card-two {
   bottom: 132px;
-  left: -108px;
-}
-
-.screen-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 7px;
-  margin-top: 30px;
-  border-radius: 18px;
-  padding: 7px;
-  background: rgba(255, 255, 255, 0.64);
-  box-shadow: inset 0 0 0 1px rgba(30, 33, 40, 0.04);
-}
-
-.screen-tabs span {
-  display: inline-flex;
-  min-width: 0;
-  min-height: 32px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 13px;
-  color: #747b88;
-  font-size: 11px;
-  font-weight: 780;
-}
-
-.screen-tabs span.active {
-  color: #2442a9;
-  background: white;
-  box-shadow: var(--shadow-sm);
+  left: -84px;
 }
 
 .value-strip {
@@ -609,7 +420,6 @@ p {
 }
 
 .value-card {
-  min-height: 188px;
   padding: 20px;
 }
 
@@ -697,79 +507,6 @@ p {
   box-shadow: inset 0 0 0 4px var(--teal-soft);
 }
 
-.metric-card,
-.calculator-card {
-  margin: 10px 0 18px;
-  border-radius: 22px;
-  padding: 18px;
-  color: white;
-  background: linear-gradient(135deg, #3657d6, #0f766e);
-}
-
-.metric-card span,
-.calculator-card span,
-.calculator-card em {
-  display: block;
-  opacity: 0.84;
-  font-style: normal;
-  font-size: 13px;
-}
-
-.metric-card strong,
-.calculator-card strong {
-  display: block;
-  margin-top: 3px;
-  font-size: 22px;
-  line-height: 1.1;
-}
-
-.mini-row {
-  justify-content: space-between;
-  min-height: 54px;
-}
-
-.month-block {
-  margin: 18px 0;
-}
-
-.month-label {
-  display: block;
-  margin: 0 0 8px 7px;
-  color: #747b88;
-  font-size: 12px;
-  font-weight: 760;
-  text-transform: uppercase;
-}
-
-.timeline-row {
-  min-height: 55px;
-  justify-content: space-between;
-}
-
-.wheel-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin: 18px 0;
-  align-items: center;
-  text-align: center;
-}
-
-.wheel-row span,
-.wheel-row strong {
-  border-radius: 14px;
-  padding: 12px 0;
-  background: white;
-  color: #747b88;
-  font-size: 15px;
-}
-
-.wheel-row strong {
-  color: #2442a9;
-  background: #e8edff;
-  font-size: 24px;
-}
-
 .feature-grid-section {
   padding: 92px 0;
   background: #ffffff;
@@ -787,7 +524,6 @@ p {
 }
 
 .feature-card {
-  min-height: 252px;
   padding: 26px;
 }
 
@@ -904,8 +640,10 @@ p {
   padding: 68px 0 28px;
 }
 
+/* Center the reading column so wide viewports don't leave a lopsided right margin. */
 .legal-page .page-hero {
   max-width: 860px;
+  margin-inline: auto;
 }
 
 .content {
@@ -914,6 +652,7 @@ p {
 
 .legal-content {
   max-width: 900px;
+  margin-inline: auto;
 }
 
 .notice {
@@ -1269,8 +1008,6 @@ li {
     grid-template-columns: 1fr;
   }
 
-  .value-card,
-  .feature-card,
   .summary-item {
     min-height: 0;
   }
@@ -1288,7 +1025,8 @@ li {
 
 }
 
-@media (max-width: 380px) {
+/* Only the very narrowest screens need to drop the wordmark; standard iPhones (375pt) keep it. */
+@media (max-width: 359px) {
   .brand span {
     display: none;
   }

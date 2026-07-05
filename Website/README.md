@@ -69,3 +69,18 @@ Then open:
 ```text
 http://127.0.0.1:4173/
 ```
+
+## App Screenshot Assets
+
+App screenshots in `assets/` are produced by the iOS repository's Marketing Media workflow
+(`Docs/Development/marketing-media-generation.md` in the app repo) with a fixed capture date so ages
+stay stable across batches. `app-ages-detail.png` is a zoomed excerpt of the same Ages capture,
+cropped from the raw 1206x2622 screenshot and downscaled to 960px wide:
+
+```bash
+sips -c 890 1166 --cropOffset 352 20 ages.png --out app-ages-detail.png
+sips -Z 960 app-ages-detail.png
+```
+
+If screenshots are recaptured, regenerate the detail crop from the new raw capture and bump the
+`?v=` cache keys on any changed asset references in the HTML.
