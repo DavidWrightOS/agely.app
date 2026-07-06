@@ -4,6 +4,7 @@
   document.documentElement.classList.add("js");
 
   var reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
   function onReady(callback) {
     if (document.readyState === "loading") {
@@ -30,6 +31,30 @@
       video.autoplay = false;
       video.muted = true;
       video.playsInline = true;
+
+      function preferredAsset(lightValue, darkValue) {
+        if (colorSchemeQuery.matches) {
+          return darkValue || lightValue || "";
+        }
+
+        return lightValue || darkValue || "";
+      }
+
+      function applyPreferredVideoAsset() {
+        var source = video.querySelector("source");
+        var preferredSource = preferredAsset(video.dataset.lightSrc, video.dataset.darkSrc);
+        var preferredPoster = preferredAsset(video.dataset.lightPoster, video.dataset.darkPoster);
+
+        if (source && preferredSource && source.getAttribute("src") !== preferredSource) {
+          source.setAttribute("src", preferredSource);
+        } else if (!source && preferredSource && video.getAttribute("src") !== preferredSource) {
+          video.setAttribute("src", preferredSource);
+        }
+
+        if (preferredPoster && video.getAttribute("poster") !== preferredPoster) {
+          video.setAttribute("poster", preferredPoster);
+        }
+      }
 
       function clearTimer() {
         if (!timerId) { return; }
@@ -124,13 +149,40 @@
         }, finalFrameHoldMs);
       }
 
+      function handleColorSchemeChange() {
+        clearScheduledWork();
+        isCompletingCycle = false;
+        video.pause();
+        setVisible(false);
+        applyPreferredVideoAsset();
+        video.load();
+
+        if (reduceMotionQuery.matches) {
+          seekToStart(function () {
+            setVisible(true);
+          });
+          return;
+        }
+
+        if (hasStarted) {
+          startCycle();
+        }
+      }
+
+      applyPreferredVideoAsset();
       video.addEventListener("ended", completeCycle);
+      if (colorSchemeQuery.addEventListener) {
+        colorSchemeQuery.addEventListener("change", handleColorSchemeChange);
+      } else if (colorSchemeQuery.addListener) {
+        colorSchemeQuery.addListener(handleColorSchemeChange);
+      }
+
+      video.load();
 
       if (reduceMotionQuery.matches) {
         seekToStart(function () {
           setVisible(true);
         });
-        video.load();
         return;
       }
 
@@ -155,8 +207,6 @@
       } else {
         beginWhenVisible();
       }
-
-      video.load();
     });
   }
 

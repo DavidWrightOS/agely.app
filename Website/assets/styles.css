@@ -256,7 +256,6 @@ p {
   padding: 12px 18px;
   color: var(--accent-strong);
   background: color-mix(in srgb, var(--accent-soft) 58%, white);
-  box-shadow: 0 10px 24px rgba(95, 85, 236, 0.1);
   font-size: 15px;
   font-weight: 780;
 }
@@ -351,6 +350,19 @@ p {
   background: #f2f1f6;
 }
 
+.app-shot-picture {
+  position: absolute;
+  left: 5.333333%;
+  top: 2.5%;
+  z-index: 1;
+  display: block;
+  width: 89.333333%;
+  height: 95%;
+  overflow: hidden;
+  border-radius: 42px;
+  background: #f5f4ef;
+}
+
 /*
  * Zoomed-in UI excerpt card. Used where a full device frame would repeat a
  * screenshot already shown elsewhere on the page; the tight crop focuses on
@@ -382,6 +394,13 @@ p {
   border-radius: 42px;
   background: #f5f4ef;
   object-fit: cover;
+}
+
+.app-shot-picture .app-shot {
+  position: static;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
 }
 
 .app-video {
@@ -961,12 +980,7 @@ p {
 }
 
 .final-cta::before {
-  content: "";
-  position: absolute;
-  inset: 20% 12%;
-  border-radius: 42px;
-  background: linear-gradient(135deg, rgba(95, 85, 236, 0.11), rgba(0, 148, 222, 0.08), rgba(230, 68, 176, 0.07));
-  pointer-events: none;
+  content: none;
 }
 
 .final-cta-inner {
@@ -976,7 +990,6 @@ p {
   border: 1px solid color-mix(in srgb, var(--accent-app) 14%, var(--border));
   border-radius: 34px;
   background: rgba(255, 255, 255, 0.82);
-  box-shadow: var(--shadow-md);
 }
 
 .final-cta img,
@@ -1429,11 +1442,15 @@ li {
   .availability-badge {
     color: var(--accent-strong);
     background: color-mix(in srgb, var(--accent-soft) 78%, rgba(255, 255, 255, 0.05));
-    box-shadow: 0 12px 28px rgba(129, 120, 255, 0.18);
   }
 
   .phone-frame {
     filter: drop-shadow(0 24px 54px rgba(0, 0, 0, 0.5));
+  }
+
+  .app-shot-picture,
+  .phone-frame-video::before {
+    background: #000000;
   }
 
   .floating-card,
@@ -1514,19 +1531,13 @@ li {
   }
 
   .final-cta::before {
-    inset: 12% 7%;
-    border-radius: 56px;
-    background:
-      radial-gradient(circle at 28% 16%, rgba(52, 182, 243, 0.16), transparent 32%),
-      radial-gradient(circle at 72% 84%, rgba(255, 111, 201, 0.13), transparent 34%),
-      radial-gradient(circle at 50% 38%, rgba(129, 120, 255, 0.2), transparent 42%);
-    filter: blur(18px);
-    opacity: 0.78;
+    content: none;
   }
 
   .final-cta-inner {
     background:
       linear-gradient(145deg, rgba(24, 28, 44, 0.97), rgba(17, 21, 34, 0.97));
+    box-shadow: none;
   }
 
   .callout {

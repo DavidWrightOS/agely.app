@@ -21,7 +21,7 @@
     <meta name="twitter:image" content="https://agely.app/assets/social-preview.png">
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260706b">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260706d">
   </head>
   <body>
     <header class="site-header">
@@ -63,14 +63,17 @@
           <div class="hero-visual animate-on-scroll scale-in stagger-2" aria-label="Agely app preview">
             <div class="phone-stage">
               <div class="phone-frame phone-frame-large phone-frame-media">
-                <img
-                  class="app-shot"
-                  src="/assets/app-ages.png?v=20260705i"
-                  alt="Agely Ages tab showing saved people, birthday groups, and current ages on iPhone."
-                  width="1206"
-                  height="2622"
-                  fetchpriority="high"
-                >
+                <picture class="app-shot-picture">
+                  <source srcset="/assets/app-ages-dark.png?v=20260706c" media="(prefers-color-scheme: dark)">
+                  <img
+                    class="app-shot"
+                    src="/assets/app-ages.png?v=20260705i"
+                    alt="Agely Ages tab showing saved people, birthday groups, and current ages on iPhone."
+                    width="1206"
+                    height="2622"
+                    fetchpriority="high"
+                  >
+                </picture>
                 <img
                   class="phone-bezel"
                   src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i"
@@ -134,15 +137,18 @@
           </div>
           <div class="feature-visual animate-on-scroll fade-left stagger-1">
             <div class="phone-frame phone-frame-media">
-              <img
-                class="app-shot"
-                src="/assets/app-ages.png?v=20260705i"
-                alt="Agely Ages tab showing group filters and each person's current age."
-                width="1206"
-                height="2622"
-                loading="lazy"
-                decoding="async"
-              >
+              <picture class="app-shot-picture">
+                <source srcset="/assets/app-ages-dark.png?v=20260706c" media="(prefers-color-scheme: dark)">
+                <img
+                  class="app-shot"
+                  src="/assets/app-ages.png?v=20260705i"
+                  alt="Agely Ages tab showing group filters and each person's current age."
+                  width="1206"
+                  height="2622"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </picture>
               <img
                 class="phone-bezel"
                 src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i"
@@ -172,15 +178,18 @@
           </div>
           <div class="feature-visual animate-on-scroll fade-right stagger-1">
             <div class="phone-frame phone-frame-media">
-              <img
-                class="app-shot"
-                src="/assets/app-upcoming.png?v=20260705i"
-                alt="Agely Upcoming Birthdays tab showing birthdays grouped by month."
-                width="1206"
-                height="2622"
-                loading="lazy"
-                decoding="async"
-              >
+              <picture class="app-shot-picture">
+                <source srcset="/assets/app-upcoming-dark.png?v=20260706c" media="(prefers-color-scheme: dark)">
+                <img
+                  class="app-shot"
+                  src="/assets/app-upcoming.png?v=20260705i"
+                  alt="Agely Upcoming Birthdays tab showing birthdays grouped by month."
+                  width="1206"
+                  height="2622"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </picture>
               <img
                 class="phone-bezel"
                 src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i"
@@ -210,15 +219,18 @@
           </div>
           <div class="feature-visual animate-on-scroll fade-left stagger-1">
             <div class="phone-frame phone-frame-media">
-              <img
-                class="app-shot"
-                src="/assets/app-calculator.png?v=20260705i"
-                alt="Agely Calculator tab showing age input controls and calculated dates for saved people."
-                width="1206"
-                height="2622"
-                loading="lazy"
-                decoding="async"
-              >
+              <picture class="app-shot-picture">
+                <source srcset="/assets/app-calculator-dark.png?v=20260706c" media="(prefers-color-scheme: dark)">
+                <img
+                  class="app-shot"
+                  src="/assets/app-calculator.png?v=20260705i"
+                  alt="Agely Calculator tab showing age input controls and calculated dates for saved people."
+                  width="1206"
+                  height="2622"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </picture>
               <img
                 class="phone-bezel"
                 src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i"
@@ -268,6 +280,10 @@
                 <video
                   class="app-shot app-video"
                   data-controlled-loop
+                  data-light-src="/assets/group-filtering.mp4?v=20260705k"
+                  data-dark-src="/assets/group-filtering-dark.mp4?v=20260706c"
+                  data-light-poster="/assets/group-filtering-poster.png?v=20260705k"
+                  data-dark-poster="/assets/group-filtering-poster-dark.png?v=20260706c"
                   muted
                   playsinline
                   preload="auto"
@@ -306,15 +322,18 @@
           </div>
           <div class="feature-visual animate-on-scroll fade-right stagger-1">
             <div class="phone-frame phone-frame-media">
-              <img
-                class="app-shot"
-                src="/assets/app-detail.png?v=20260705i"
-                alt="Agely Contact Detail view showing Avery Parker with a photo, birthday facts, groups, and notes."
-                width="1206"
-                height="2622"
-                loading="lazy"
-                decoding="async"
-              >
+              <picture class="app-shot-picture">
+                <source srcset="/assets/app-detail-dark.png?v=20260706c" media="(prefers-color-scheme: dark)">
+                <img
+                  class="app-shot"
+                  src="/assets/app-detail.png?v=20260705i"
+                  alt="Agely Contact Detail view showing Avery Parker with a photo, birthday facts, groups, and notes."
+                  width="1206"
+                  height="2622"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </picture>
               <img
                 class="phone-bezel"
                 src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i"
@@ -376,6 +395,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260705l" defer></script>
+    <script src="/assets/animations.js?v=20260706c" defer></script>
   </body>
 </html>
