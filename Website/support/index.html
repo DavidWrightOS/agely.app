@@ -21,7 +21,8 @@
     <meta name="twitter:image" content="https://agely.app/assets/social-preview.png">
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260706d">
+    <script src="/assets/theme-init.js?v=20260706g"></script>
+    <link rel="stylesheet" href="/assets/styles.css?v=20260706g">
   </head>
   <body>
     <header class="site-header">
@@ -30,11 +31,97 @@
           <img src="/assets/agely-icon.png" alt="" width="38" height="38">
           <span>Agely</span>
         </a>
-        <nav class="nav-links" aria-label="Primary">
+        <div class="nav-actions">
+          <nav class="nav-links desktop-nav" aria-label="Primary">
+            <a href="/">Home</a>
+            <a href="/privacy/">Privacy</a>
+            <a href="/support/" aria-current="page">Contact Us</a>
+          </nav>
+          <div class="theme-menu-wrap desktop-theme-control" data-theme-menu>
+            <button class="theme-menu-button" type="button" aria-label="Appearance" aria-haspopup="menu" aria-expanded="false" aria-controls="appearance-menu" data-theme-menu-button>
+              <span class="theme-current-icon" aria-hidden="true">
+                <svg class="theme-icon theme-mode-icon theme-mode-system" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+                  <path d="M8 21h8"></path>
+                  <path d="M12 17v4"></path>
+                </svg>
+                <svg class="theme-icon theme-mode-icon theme-mode-light" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+                <svg class="theme-icon theme-mode-icon theme-mode-dark" viewBox="0 0 24 24">
+                  <path d="M20.99 12.67A8.5 8.5 0 1 1 11.33 3a6.5 6.5 0 0 0 9.66 9.67Z"></path>
+                </svg>
+              </span>
+            </button>
+            <div class="theme-popover" id="appearance-menu" role="menu" aria-label="Appearance" data-theme-popover hidden>
+              <button class="theme-menu-row" type="button" role="menuitemradio" aria-checked="true" data-theme-option="system">
+                <span class="theme-menu-row-label">
+                  <svg class="theme-icon theme-icon-small" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+                    <path d="M8 21h8"></path>
+                    <path d="M12 17v4"></path>
+                  </svg>
+                  System
+                </span>
+                <span class="theme-checkmark" aria-hidden="true">&#10003;</span>
+              </button>
+              <button class="theme-menu-row" type="button" role="menuitemradio" aria-checked="false" data-theme-option="light">
+                <span class="theme-menu-row-label">
+                  <svg class="theme-icon theme-icon-small" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path>
+                    <path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path>
+                    <path d="m19.07 4.93-1.41 1.41"></path>
+                  </svg>
+                  Light
+                </span>
+                <span class="theme-checkmark" aria-hidden="true">&#10003;</span>
+              </button>
+              <button class="theme-menu-row" type="button" role="menuitemradio" aria-checked="false" data-theme-option="dark">
+                <span class="theme-menu-row-label">
+                  <svg class="theme-icon theme-icon-small" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.99 12.67A8.5 8.5 0 1 1 11.33 3a6.5 6.5 0 0 0 9.66 9.67Z"></path>
+                  </svg>
+                  Dark
+                </span>
+                <span class="theme-checkmark" aria-hidden="true">&#10003;</span>
+              </button>
+            </div>
+          </div>
+          <button class="compact-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu" data-site-menu-toggle>
+            <span class="menu-icon-line" aria-hidden="true"></span>
+            <span class="menu-icon-line" aria-hidden="true"></span>
+            <span class="menu-icon-line" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div class="site-shell compact-menu" id="site-menu" data-site-menu hidden>
+        <nav class="compact-nav-links" aria-label="Primary">
           <a href="/">Home</a>
           <a href="/privacy/">Privacy</a>
           <a href="/support/" aria-current="page">Contact Us</a>
         </nav>
+        <div class="compact-appearance">
+          <span class="compact-appearance-label">Appearance</span>
+          <div class="theme-segmented-control" role="group" aria-label="Appearance">
+            <button type="button" aria-pressed="true" data-theme-option="system">System</button>
+            <button type="button" aria-pressed="false" data-theme-option="light">Light</button>
+            <button type="button" aria-pressed="false" data-theme-option="dark">Dark</button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -108,8 +195,15 @@
           <a href="/privacy/">Privacy</a>
           <a href="mailto:support@agely.app">support@agely.app</a>
         </div>
+        <div class="footer-appearance" aria-label="Appearance">
+          <div class="theme-segmented-control theme-segmented-footer" role="group" aria-label="Appearance">
+            <button type="button" aria-pressed="true" data-theme-option="system">System</button>
+            <button type="button" aria-pressed="false" data-theme-option="light">Light</button>
+            <button type="button" aria-pressed="false" data-theme-option="dark">Dark</button>
+          </div>
+        </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260706c" defer></script>
+    <script src="/assets/animations.js?v=20260706g" defer></script>
   </body>
 </html>

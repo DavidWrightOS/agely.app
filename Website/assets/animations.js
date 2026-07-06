@@ -5,12 +5,211 @@
 
   var reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   var colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  var themeStorageKey = "agely-theme";
+  var allowedThemes = {
+    system: true,
+    light: true,
+    dark: true
+  };
 
   function onReady(callback) {
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", callback);
     } else {
       callback();
+    }
+  }
+
+  function normalizedTheme(value) {
+    return allowedThemes[value] ? value : "system";
+  }
+
+  function systemTheme() {
+    return colorSchemeQuery.matches ? "dark" : "light";
+  }
+
+  function currentTheme() {
+    return normalizedTheme(document.documentElement.dataset.theme);
+  }
+
+  function currentResolvedTheme() {
+    return document.documentElement.dataset.resolvedTheme || (currentTheme() === "system" ? systemTheme() : currentTheme());
+  }
+
+  function resolveTheme(theme) {
+    return theme === "system" ? systemTheme() : theme;
+  }
+
+  function persistTheme(theme) {
+    try {
+      window.localStorage.setItem(themeStorageKey, theme);
+    } catch (_) {
+      // Private browsing or locked-down environments may reject storage.
+    }
+  }
+
+  function updateThemePictures() {
+    var theme = currentTheme();
+    var media = "(prefers-color-scheme: dark)";
+
+    if (theme === "dark") {
+      media = "all";
+    } else if (theme === "light") {
+      media = "not all";
+    }
+
+    document.querySelectorAll("source[data-theme-dark-source]").forEach(function (source) {
+      if (source.getAttribute("media") !== media) {
+        source.setAttribute("media", media);
+      }
+    });
+  }
+
+  function syncThemeControls() {
+    var theme = currentTheme();
+
+    document.querySelectorAll("[data-theme-option]").forEach(function (control) {
+      var isSelected = control.dataset.themeOption === theme;
+
+      if (control.getAttribute("role") === "menuitemradio") {
+        control.setAttribute("aria-checked", String(isSelected));
+      } else {
+        control.setAttribute("aria-pressed", String(isSelected));
+      }
+    });
+  }
+
+  function announceThemeChange(theme) {
+    window.dispatchEvent(new CustomEvent("agelythemechange", {
+      detail: {
+        theme: theme,
+        resolvedTheme: currentResolvedTheme()
+      }
+    }));
+  }
+
+  function applyTheme(theme, options) {
+    var nextTheme = normalizedTheme(theme);
+
+    document.documentElement.dataset.theme = nextTheme;
+    document.documentElement.dataset.resolvedTheme = resolveTheme(nextTheme);
+
+    if (options && options.persist) {
+      persistTheme(nextTheme);
+    }
+
+    syncThemeControls();
+    updateThemePictures();
+
+    if (!options || options.dispatch !== false) {
+      announceThemeChange(nextTheme);
+    }
+  }
+
+  function bindThemeMenus() {
+    function closeThemeMenus(exceptMenu) {
+      document.querySelectorAll("[data-theme-menu]").forEach(function (menu) {
+        if (menu === exceptMenu) { return; }
+
+        var button = menu.querySelector("[data-theme-menu-button]");
+        var popover = menu.querySelector("[data-theme-popover]");
+        if (!button || !popover) { return; }
+
+        button.setAttribute("aria-expanded", "false");
+        popover.hidden = true;
+      });
+    }
+
+    document.querySelectorAll("[data-theme-menu]").forEach(function (menu) {
+      var button = menu.querySelector("[data-theme-menu-button]");
+      var popover = menu.querySelector("[data-theme-popover]");
+      if (!button || !popover) { return; }
+
+      button.addEventListener("click", function (event) {
+        event.stopPropagation();
+        var shouldOpen = popover.hidden;
+        closeThemeMenus(menu);
+        popover.hidden = !shouldOpen;
+        button.setAttribute("aria-expanded", String(shouldOpen));
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (event.target.closest("[data-theme-menu]")) { return; }
+      closeThemeMenus();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") { return; }
+      closeThemeMenus();
+    });
+  }
+
+  function bindCompactMenu() {
+    var button = document.querySelector("[data-site-menu-toggle]");
+    if (!button) { return; }
+
+    var menu = document.getElementById(button.getAttribute("aria-controls"));
+    if (!menu) { return; }
+
+    function closeMenu() {
+      menu.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+    }
+
+    button.addEventListener("click", function (event) {
+      event.stopPropagation();
+      var shouldOpen = menu.hidden;
+      menu.hidden = !shouldOpen;
+      button.setAttribute("aria-expanded", String(shouldOpen));
+    });
+
+    document.addEventListener("click", function (event) {
+      if (menu.hidden) { return; }
+      if (event.target.closest("[data-site-menu]") || event.target.closest("[data-site-menu-toggle]")) { return; }
+      closeMenu();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") { return; }
+      closeMenu();
+    });
+  }
+
+  function bindThemeOptions() {
+    document.querySelectorAll("[data-theme-option]").forEach(function (control) {
+      control.addEventListener("click", function () {
+        applyTheme(control.dataset.themeOption, { persist: true });
+
+        var parentThemeMenu = control.closest("[data-theme-menu]");
+        if (parentThemeMenu) {
+          var button = parentThemeMenu.querySelector("[data-theme-menu-button]");
+          var popover = parentThemeMenu.querySelector("[data-theme-popover]");
+          if (button && popover) {
+            button.setAttribute("aria-expanded", "false");
+            popover.hidden = true;
+          }
+        }
+      });
+    });
+  }
+
+  function bindAppearanceControls() {
+    applyTheme(currentTheme(), { dispatch: false });
+    bindThemeMenus();
+    bindCompactMenu();
+    bindThemeOptions();
+
+    function handleSystemThemeChange() {
+      if (currentTheme() === "system") {
+        applyTheme("system");
+      }
+    }
+
+    if (colorSchemeQuery.addEventListener) {
+      colorSchemeQuery.addEventListener("change", handleSystemThemeChange);
+    } else if (colorSchemeQuery.addListener) {
+      colorSchemeQuery.addListener(handleSystemThemeChange);
     }
   }
 
@@ -33,7 +232,7 @@
       video.playsInline = true;
 
       function preferredAsset(lightValue, darkValue) {
-        if (colorSchemeQuery.matches) {
+        if (currentResolvedTheme() === "dark") {
           return darkValue || lightValue || "";
         }
 
@@ -171,11 +370,7 @@
 
       applyPreferredVideoAsset();
       video.addEventListener("ended", completeCycle);
-      if (colorSchemeQuery.addEventListener) {
-        colorSchemeQuery.addEventListener("change", handleColorSchemeChange);
-      } else if (colorSchemeQuery.addListener) {
-        colorSchemeQuery.addListener(handleColorSchemeChange);
-      }
+      window.addEventListener("agelythemechange", handleColorSchemeChange);
 
       video.load();
 
@@ -268,6 +463,7 @@
   }
 
   onReady(function () {
+    bindAppearanceControls();
     bindSamePageAnchors();
     bindControlledVideoLoops();
     initScrollAnimations();
