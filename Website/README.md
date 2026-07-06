@@ -87,5 +87,5 @@ sips -Z 960 app-ages-detail.png
 ```
 
 If screenshots or videos are recaptured, regenerate the matching poster frames, refresh both
-appearance variants where needed, and bump the `?v=` cache keys on any changed asset references in
-the HTML.
+appearance variants where needed, refresh `social-preview.png` from the updated hero, and bump the
+`?v=` cache keys on any changed asset references in the HTML.
