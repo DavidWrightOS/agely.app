@@ -339,6 +339,18 @@ p {
   margin-inline: auto;
 }
 
+.phone-frame-video::before {
+  content: "";
+  position: absolute;
+  left: 5.333333%;
+  top: 2.5%;
+  z-index: 0;
+  width: 89.333333%;
+  height: 95%;
+  border-radius: 42px;
+  background: #f2f1f6;
+}
+
 /*
  * Zoomed-in UI excerpt card. Used where a full device frame would repeat a
  * screenshot already shown elsewhere on the page; the tight crop focuses on
@@ -374,6 +386,12 @@ p {
 
 .app-video {
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.app-video.is-loop-visible {
+  opacity: 1;
 }
 
 .phone-bezel {
