@@ -151,10 +151,10 @@
             <div class="phone-stage">
               <div class="phone-frame phone-frame-large phone-frame-media">
                 <picture class="app-shot-picture">
-                  <source srcset="/assets/app-ages-dark.png?v=20260706e" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                  <source srcset="/assets/app-ages-dark.png?v=20260707a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
                   <img
                     class="app-shot"
-                    src="/assets/app-ages.png?v=20260706e"
+                    src="/assets/app-ages.png?v=20260707a"
                     alt="Agely Ages tab listing people with their current ages on iPhone."
                     width="1206"
                     height="2622"
@@ -174,7 +174,7 @@
               <!-- Card copy mirrors the demo data visible in the screenshots so the page stays believable. -->
               <div class="floating-card floating-card-one animate-float" aria-hidden="true">
                 <strong>Next up</strong>
-                <span>Theo turns 1 in 30 days</span>
+                <span>Theo turns 3 in 21 days</span>
               </div>
               <div class="floating-card floating-card-two animate-float-delay" aria-hidden="true">
                 <strong>Groups</strong>
@@ -223,19 +223,34 @@
             </ul>
           </div>
           <div class="feature-visual animate-on-scroll fade-left stagger-1">
-            <div class="phone-frame phone-frame-media">
-              <picture class="app-shot-picture">
-                <source srcset="/assets/app-ages-dark.png?v=20260706e" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+            <div class="phone-frame phone-frame-media phone-frame-video">
+              <picture class="app-shot-picture" aria-hidden="true">
+                <source srcset="/assets/app-ages-poster-dark.png?v=20260707a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
                 <img
                   class="app-shot"
-                  src="/assets/app-ages.png?v=20260706e"
-                  alt="Agely Ages tab showing group filters and each person's current age."
+                  src="/assets/app-ages-poster.png?v=20260707a"
+                  alt=""
                   width="1206"
                   height="2622"
                   loading="lazy"
                   decoding="async"
                 >
               </picture>
+              <video
+                class="app-shot app-video"
+                data-controlled-loop
+                data-light-src="/assets/app-ages.mp4?v=20260707a"
+                data-dark-src="/assets/app-ages-dark.mp4?v=20260707a"
+                data-light-poster="/assets/app-ages-poster.png?v=20260707a"
+                data-dark-poster="/assets/app-ages-poster-dark.png?v=20260707a"
+                muted
+                playsinline
+                preload="auto"
+                poster="/assets/app-ages-poster.png?v=20260707a"
+                aria-label="Screen recording of Agely comparing everyone's age against a pinned contact."
+              >
+                <source src="/assets/app-ages.mp4?v=20260707a" type="video/mp4">
+              </video>
               <img
                 class="phone-bezel"
                 src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i"
@@ -266,10 +281,10 @@
           <div class="feature-visual animate-on-scroll fade-right stagger-1">
             <div class="phone-frame phone-frame-media">
               <picture class="app-shot-picture">
-                <source srcset="/assets/app-upcoming-dark.png?v=20260706e" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                <source srcset="/assets/app-upcoming-dark.png?v=20260707a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
                 <img
                   class="app-shot"
-                  src="/assets/app-upcoming.png?v=20260706e"
+                  src="/assets/app-upcoming.png?v=20260707a"
                   alt="Agely Upcoming Birthdays tab showing birthdays grouped by month."
                   width="1206"
                   height="2622"
@@ -307,11 +322,11 @@
           <div class="feature-visual animate-on-scroll fade-left stagger-1">
             <div class="phone-frame phone-frame-media">
               <picture class="app-shot-picture">
-                <source srcset="/assets/app-calculator-dark.png?v=20260706e" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                <source srcset="/assets/app-calculator-dark.png?v=20260707a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
                 <img
                   class="app-shot"
-                  src="/assets/app-calculator.png?v=20260706e"
-                  alt="Agely Calculator tab showing age input controls and calculated dates for saved people."
+                  src="/assets/app-calculator.png?v=20260707a"
+                  alt="Agely Calculator tab in Input Date mode showing ages on March 15, 2026."
                   width="1206"
                   height="2622"
                   loading="lazy"
@@ -349,10 +364,10 @@
                   panel. Keep each poster identical to the video's first frame.
                 -->
                 <picture class="app-shot-picture" aria-hidden="true">
-                  <source srcset="/assets/group-filtering-poster-dark.png?v=20260706e" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                  <source srcset="/assets/group-filtering-poster-dark.png?v=20260707a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
                   <img
                     class="app-shot"
-                    src="/assets/group-filtering-poster.png?v=20260706e"
+                    src="/assets/group-filtering-poster.png?v=20260707a"
                     alt=""
                     width="1206"
                     height="2622"
@@ -360,23 +375,20 @@
                     decoding="async"
                   >
                 </picture>
-                <!-- data-loop-start/end trim dead frames in the current capture. -->
                 <video
                   class="app-shot app-video"
                   data-controlled-loop
-                  data-loop-start="0.5"
-                  data-loop-end="11.05"
-                  data-light-src="/assets/group-filtering.mp4?v=20260706e"
-                  data-dark-src="/assets/group-filtering-dark.mp4?v=20260706e"
-                  data-light-poster="/assets/group-filtering-poster.png?v=20260706e"
-                  data-dark-poster="/assets/group-filtering-poster-dark.png?v=20260706e"
+                  data-light-src="/assets/group-filtering.mp4?v=20260707a"
+                  data-dark-src="/assets/group-filtering-dark.mp4?v=20260707a"
+                  data-light-poster="/assets/group-filtering-poster.png?v=20260707a"
+                  data-dark-poster="/assets/group-filtering-poster-dark.png?v=20260707a"
                   muted
                   playsinline
                   preload="auto"
-                  poster="/assets/group-filtering-poster.png?v=20260706e"
+                  poster="/assets/group-filtering-poster.png?v=20260707a"
                   aria-label="Screen recording of Agely filtering the Ages list by Family and Friends groups."
                 >
-                  <source src="/assets/group-filtering.mp4?v=20260706e" type="video/mp4">
+                  <source src="/assets/group-filtering.mp4?v=20260707a" type="video/mp4">
                 </video>
                 <img
                   class="phone-bezel"
@@ -395,11 +407,11 @@
       </section>
 
       <section class="feature-section">
-        <div class="site-shell">
-          <div class="section-copy animate-on-scroll fade-up">
+        <div class="site-shell split-section">
+          <div class="section-copy animate-on-scroll fade-right">
             <p class="eyebrow">Reminders</p>
             <h2>Stay on top of birthdays with helpful reminders.</h2>
-            <p>Get a reminder for every birthday, or only for the people you choose — and decide when the heads-up arrives, from the day itself to a week ahead.</p>
+            <p>Get a reminder for every birthday, or only for the people you choose — and decide when the heads-up arrives, from the day itself to three weeks ahead.</p>
             <div class="hero-actions">
               <!-- APP_STORE_URL -->
               <span class="availability-badge" aria-label="Agely is coming soon to the App Store">
@@ -408,9 +420,21 @@
               </span>
             </div>
           </div>
-          <!-- MEDIA TODO: add a cropped lock-screen capture with birthday
-               reminder notifications here (see MEDIA-TODO.md), then convert
-               this section to the standard split-section layout. -->
+          <div class="feature-visual animate-on-scroll fade-left stagger-1">
+            <div class="detail-frame">
+              <picture>
+                <source srcset="/assets/birthday-reminders-dark.png?v=20260707a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                <img
+                  src="/assets/birthday-reminders.png?v=20260707a"
+                  alt="iPhone Lock Screen showing stacked Agely reminders for Theo Brooks and Avery Parker."
+                  width="1120"
+                  height="560"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </picture>
+            </div>
+          </div>
         </div>
       </section>
 
