@@ -549,6 +549,19 @@ p {
   justify-content: center;
 }
 
+/*
+ * The phone wrappers are flex containers, so without this their children
+ * default to align-items: stretch. Safari lets that stretch override the
+ * phone frame's aspect-ratio at some widths, which distorts the bezel and
+ * makes the object-fit: cover screenshot crop at the edges.
+ */
+.hero-visual,
+.feature-visual,
+.motion-media,
+.phone-stage {
+  align-items: flex-start;
+}
+
 .phone-stage {
   position: relative;
   width: min(100%, 430px);
@@ -695,18 +708,18 @@ p {
 }
 
 /*
- * Offsets keep the cards inside the hero's clipped bounds at the 1281px
- * breakpoint where they first appear; larger offsets get cut by the
- * section's overflow: hidden on narrower desktop windows.
+ * Offsets push the cards clear of the screenshot so they only overlap the
+ * bezel border, never the app content. They must stay inside the hero's
+ * clipped bounds at the 1341px breakpoint where the cards first appear.
  */
 .floating-card-one {
   top: 86px;
-  right: -84px;
+  right: -116px;
 }
 
 .floating-card-two {
   bottom: 132px;
-  left: -84px;
+  left: -116px;
 }
 
 .value-strip {
@@ -720,7 +733,6 @@ p {
 }
 
 .value-card,
-.feature-card,
 .summary-item,
 .detail-panel,
 .notice,
@@ -754,7 +766,6 @@ p {
 }
 
 .value-card p,
-.feature-card p,
 .summary-item span {
   color: var(--muted);
   font-size: 15px;
@@ -765,8 +776,13 @@ p {
   padding: 84px 0;
 }
 
+/*
+ * Alternating band tint. A solid color keeps the section's top and bottom
+ * edges equally crisp; the previous top-heavy gradient left a sharp line on
+ * top and a faint smudge at the bottom, which read as unintentional.
+ */
 .feature-section-muted {
-  background: linear-gradient(180deg, rgba(240, 238, 231, 0.64), rgba(240, 238, 231, 0.28));
+  background: rgba(240, 238, 231, 0.5);
 }
 
 .split-section {
@@ -824,54 +840,11 @@ p {
   background: #ffffff;
 }
 
-.section-heading {
-  max-width: 740px;
-  margin-bottom: 36px;
-}
-
-.feature-card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.feature-card {
-  padding: 26px;
-}
-
-.feature-symbol {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  margin-bottom: 20px;
-  border-radius: 16px;
-  color: var(--accent);
-  background: var(--accent-soft);
-  font-weight: 820;
-}
-
-.feature-card:nth-child(2) .feature-symbol {
-  color: var(--blue-app);
-  background: var(--blue-soft);
-}
-
-.feature-card:nth-child(3) .feature-symbol {
-  color: var(--pink-app);
-  background: var(--pink-soft);
-}
-
-.feature-card h3 {
-  margin-bottom: 10px;
-}
-
 .motion-demo {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
   gap: 28px;
   align-items: center;
-  margin-top: 26px;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--accent-app) 14%, var(--border));
   border-radius: 28px;
@@ -1164,10 +1137,15 @@ p {
 
 .trust-section {
   padding: 90px 0;
+  /*
+   * The vertical gradient must end at var(--background) so this section blends
+   * into the final CTA below it; ending on pure white left a visible seam
+   * against the warm page background. (The dark theme already does this.)
+   */
   background:
     radial-gradient(circle at 12% 0%, rgba(0, 148, 222, 0.12), transparent 34%),
     radial-gradient(circle at 88% 14%, rgba(95, 85, 236, 0.14), transparent 32%),
-    linear-gradient(180deg, #f6f7ff, #ffffff);
+    linear-gradient(180deg, #f6f7ff, var(--background));
   color: var(--text);
 }
 
@@ -1325,7 +1303,8 @@ a.summary-item:hover {
 }
 
 .summary-action::after {
-  content: ">";
+  /* A chevron reads as navigation; a bare ">" looks like a code character. */
+  content: "\203A";
   margin-left: 7px;
   transition: transform 180ms ease;
 }
@@ -1711,7 +1690,6 @@ li {
 
 :root[data-resolved-theme="dark"] .floating-card,
 :root[data-resolved-theme="dark"] .value-card,
-:root[data-resolved-theme="dark"] .feature-card,
 :root[data-resolved-theme="dark"] .summary-item,
 :root[data-resolved-theme="dark"] .detail-panel,
 :root[data-resolved-theme="dark"] .notice,
@@ -1873,7 +1851,6 @@ li {
 
   :root:not([data-theme]) .floating-card,
   :root:not([data-theme]) .value-card,
-  :root:not([data-theme]) .feature-card,
   :root:not([data-theme]) .summary-item,
   :root:not([data-theme]) .detail-panel,
   :root:not([data-theme]) .notice,
@@ -1985,8 +1962,7 @@ li {
     max-width: 760px;
   }
 
-  .value-grid,
-  .feature-card-grid {
+  .value-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1999,7 +1975,7 @@ li {
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1340px) {
   .hero .floating-card {
     display: none;
   }
@@ -2149,7 +2125,6 @@ li {
   }
 
   .value-grid,
-  .feature-card-grid,
   .summary-grid,
   .privacy-summary,
   .contact-options,

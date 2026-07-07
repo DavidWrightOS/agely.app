@@ -213,20 +213,32 @@
     }
   }
 
+  /*
+   * Continuous, self-recovering video loops.
+   *
+   * Design goals (shared by every marketing video on the site):
+   * - The video plays as an uninterrupted native loop; there is no scripted
+   *   fade-out phase, so the loop never intentionally goes blank.
+   * - A still-frame <picture> is layered underneath each video in the HTML.
+   *   The video only fades in while it is actually rendering frames, so any
+   *   failure (stalled network, blocked autoplay, tab switch, theme swap)
+   *   reveals the matching still frame instead of an empty panel.
+   * - A watchdog nudges paused/stuck playback and, as a last resort, reloads
+   *   the file, so a wedged video recovers without a page refresh.
+   *
+   * Per-video capture quirks are configured with data attributes rather than
+   * code changes: data-loop-start / data-loop-end (seconds) trim dead frames
+   * from either end of the file until the capture can be re-exported.
+   */
   function bindControlledVideoLoops() {
     document.querySelectorAll("video[data-controlled-loop]").forEach(function (video) {
-      var fadeMs = 700;
-      var loopStartSeconds = 0.5;
-      var loopEndSeconds = 11.05;
-      var firstFrameHoldMs = 0;
-      var finalFrameHoldMs = 2000;
-      var hiddenHoldMs = 1000;
-      var timerId;
-      var endWatcherId;
-      var isCompletingCycle = false;
+      var loopStartSeconds = parseFloat(video.dataset.loopStart || "0") || 0;
+      var loopEndSeconds = parseFloat(video.dataset.loopEnd || "") || Infinity;
       var hasStarted = false;
+      var lastPlayheadTime = -1;
+      var stalledTicks = 0;
 
-      video.loop = false;
+      video.loop = true;
       video.autoplay = false;
       video.muted = true;
       video.playsInline = true;
@@ -255,136 +267,114 @@
         }
       }
 
-      function clearTimer() {
-        if (!timerId) { return; }
-        window.clearTimeout(timerId);
-        timerId = null;
-      }
-
-      function clearEndWatcher() {
-        if (!endWatcherId) { return; }
-        window.cancelAnimationFrame(endWatcherId);
-        endWatcherId = null;
-      }
-
-      function clearScheduledWork() {
-        clearTimer();
-        clearEndWatcher();
-      }
-
-      function segmentEndSeconds() {
-        if (!Number.isFinite(video.duration)) {
-          return loopEndSeconds;
-        }
-
-        return Math.min(loopEndSeconds, Math.max(loopStartSeconds + 1, video.duration - 0.08));
-      }
-
       function setVisible(isVisible) {
         video.classList.toggle("is-loop-visible", isVisible);
       }
 
-      function afterFirstFrameLoaded(callback) {
-        if (video.readyState >= 2) {
-          callback();
-          return;
-        }
+      function seekToLoopStart() {
+        if (loopStartSeconds <= 0) { return; }
 
-        video.addEventListener("loadeddata", callback, { once: true });
-      }
-
-      function seekToStart(callback) {
-        video.pause();
-
-        afterFirstFrameLoaded(function () {
-          if (Math.abs(video.currentTime - loopStartSeconds) < 0.05) {
-            callback();
-            return;
+        function seek() {
+          try {
+            video.currentTime = loopStartSeconds;
+          } catch (_) {
+            // Seeking can throw while the element has no usable data; the
+            // timeupdate handler below snaps playback into the window instead.
           }
-
-          video.addEventListener("seeked", callback, { once: true });
-          video.currentTime = loopStartSeconds;
-        });
-      }
-
-      function watchForSegmentEnd() {
-        if (video.currentTime >= segmentEndSeconds() || video.ended) {
-          completeCycle();
-          return;
         }
 
-        endWatcherId = window.requestAnimationFrame(watchForSegmentEnd);
+        if (video.readyState >= 1) {
+          seek();
+        } else {
+          video.addEventListener("loadedmetadata", seek, { once: true });
+        }
       }
 
-      function playVideo() {
+      function tryPlay() {
+        if (!hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
+
         var playPromise = video.play();
-        clearEndWatcher();
-        endWatcherId = window.requestAnimationFrame(watchForSegmentEnd);
         if (playPromise && typeof playPromise.catch === "function") {
           playPromise.catch(function () {
-            clearEndWatcher();
-            // Keep the first frame visible if the browser blocks autoplay.
+            // Autoplay was blocked; the still frame stays visible and the
+            // watchdog retries later.
+            setVisible(false);
           });
         }
       }
 
-      function startCycle() {
-        clearScheduledWork();
-        isCompletingCycle = false;
-        seekToStart(function () {
-          setVisible(true);
-          timerId = window.setTimeout(playVideo, fadeMs + firstFrameHoldMs);
-        });
-      }
+      // Fade the video in only while frames are actually advancing. Every
+      // stopped state reveals the still-frame fallback underneath.
+      video.addEventListener("playing", function () { setVisible(true); });
+      ["pause", "waiting", "stalled", "error", "emptied"].forEach(function (eventName) {
+        video.addEventListener(eventName, function () { setVisible(false); });
+      });
 
-      function completeCycle() {
-        if (isCompletingCycle) { return; }
-        isCompletingCycle = true;
-        clearScheduledWork();
-        video.pause();
-        timerId = window.setTimeout(function () {
-          setVisible(false);
-          timerId = window.setTimeout(startCycle, fadeMs + hiddenHoldMs);
-        }, finalFrameHoldMs);
-      }
+      // Keep the playhead inside the trimmed window. Native looping restarts
+      // at 0:00, so snap back to the loop start whenever playback drifts out.
+      video.addEventListener("timeupdate", function () {
+        if (video.currentTime >= loopEndSeconds || video.currentTime < loopStartSeconds) {
+          video.currentTime = loopStartSeconds;
+        }
+      });
 
-      function handleColorSchemeChange() {
-        clearScheduledWork();
-        isCompletingCycle = false;
-        video.pause();
+      window.addEventListener("agelythemechange", function () {
+        // The fallback <picture> swaps via its data-theme-dark-source rule;
+        // the video needs an explicit reload onto the matching asset.
         setVisible(false);
         applyPreferredVideoAsset();
         video.load();
+        seekToLoopStart();
+        tryPlay();
+      });
 
-        if (reduceMotionQuery.matches) {
-          seekToStart(function () {
-            setVisible(true);
-          });
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) { tryPlay(); }
+      });
+
+      // Watchdog: if the playhead stops advancing while the loop should be
+      // running, nudge play(); after repeated stalled checks, reload the file.
+      window.setInterval(function () {
+        if (!hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
+
+        var isAdvancing = !video.paused && video.currentTime !== lastPlayheadTime;
+        lastPlayheadTime = video.currentTime;
+
+        if (isAdvancing) {
+          stalledTicks = 0;
           return;
         }
 
-        if (hasStarted) {
-          startCycle();
+        stalledTicks += 1;
+
+        // While the file is still downloading its first frames, reloading
+        // would only restart the download, so wait much longer before
+        // escalating; a wedged pipeline gets reloaded after three checks.
+        var isStillDownloading = video.networkState === HTMLMediaElement.NETWORK_LOADING &&
+          video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA;
+        if (stalledTicks >= (isStillDownloading ? 8 : 3)) {
+          stalledTicks = 0;
+          applyPreferredVideoAsset();
+          video.load();
+          seekToLoopStart();
         }
-      }
+        tryPlay();
+      }, 4000);
 
       applyPreferredVideoAsset();
-      video.addEventListener("ended", completeCycle);
-      window.addEventListener("agelythemechange", handleColorSchemeChange);
-
       video.load();
+      seekToLoopStart();
 
       if (reduceMotionQuery.matches) {
-        seekToStart(function () {
-          setVisible(true);
-        });
+        // Respect reduced motion: playback never starts, so the still-frame
+        // fallback simply stays in place.
         return;
       }
 
       function beginWhenVisible() {
         if (hasStarted) { return; }
         hasStarted = true;
-        startCycle();
+        tryPlay();
       }
 
       if ("IntersectionObserver" in window) {
