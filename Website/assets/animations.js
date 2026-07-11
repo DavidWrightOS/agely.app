@@ -458,6 +458,29 @@
     updateAvailability();
   }
 
+  function bindCalculatorComparison() {
+    document.querySelectorAll("[data-calculator-comparison]").forEach(function (comparison) {
+      var buttons = comparison.querySelectorAll("[data-calculator-variant-button]");
+      var panels = comparison.querySelectorAll("[data-calculator-variant-panel]");
+
+      function selectVariant(variant) {
+        comparison.dataset.calculatorActive = variant;
+        buttons.forEach(function (button) {
+          button.setAttribute("aria-pressed", String(button.dataset.calculatorVariantButton === variant));
+        });
+        panels.forEach(function (panel) {
+          panel.hidden = panel.dataset.calculatorVariantPanel !== variant;
+        });
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          selectVariant(button.dataset.calculatorVariantButton);
+        });
+      });
+    });
+  }
+
   function revealAll() {
     document.querySelectorAll(".animate-on-scroll").forEach(function (element) {
       element.classList.add("is-visible");
@@ -490,6 +513,7 @@
     bindAppearanceControls();
     bindSamePageAnchors();
     bindContextualAvailability();
+    bindCalculatorComparison();
     bindControlledVideoLoops();
     initScrollAnimations();
   });
