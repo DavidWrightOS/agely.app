@@ -424,6 +424,40 @@
     });
   }
 
+  function bindContextualAvailability() {
+    var header = document.querySelector("[data-contextual-availability]");
+    if (!header) { return; }
+
+    var sentinels = Array.prototype.slice.call(document.querySelectorAll("[data-availability-sentinel]"));
+    if (!sentinels.length) {
+      header.classList.add("is-availability-visible");
+      return;
+    }
+
+    var updatePending = false;
+
+    function isVisible(element) {
+      var rect = element.getBoundingClientRect();
+      return rect.bottom > header.offsetHeight && rect.top < window.innerHeight;
+    }
+
+    function updateAvailability() {
+      updatePending = false;
+      var hasVisiblePageControl = sentinels.some(isVisible);
+      header.classList.toggle("is-availability-visible", !hasVisiblePageControl);
+    }
+
+    function requestUpdate() {
+      if (updatePending) { return; }
+      updatePending = true;
+      window.requestAnimationFrame(updateAvailability);
+    }
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    updateAvailability();
+  }
+
   function revealAll() {
     document.querySelectorAll(".animate-on-scroll").forEach(function (element) {
       element.classList.add("is-visible");
@@ -455,6 +489,7 @@
   onReady(function () {
     bindAppearanceControls();
     bindSamePageAnchors();
+    bindContextualAvailability();
     bindControlledVideoLoops();
     initScrollAnimations();
   });
