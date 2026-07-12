@@ -88,6 +88,7 @@ a:hover {
 
 .header-availability {
   display: inline-flex;
+  width: 220px;
   min-height: 38px;
   align-items: center;
   justify-content: center;
@@ -100,6 +101,10 @@ a:hover {
   font-weight: 780;
   line-height: 1.2;
   white-space: nowrap;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    visibility 0s linear 0s;
 }
 
 .availability-label-compact {
@@ -107,7 +112,11 @@ a:hover {
 }
 
 .js .site-header-contextual:not(.is-availability-visible) .header-availability {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition-delay: 0s, 0s, 220ms;
 }
 
 .nav {
@@ -607,12 +616,12 @@ p {
 
 .hero-phone-calculator {
   z-index: 1;
-  transform: translate(-116px, 18px) rotate(-5deg);
+  transform: translate(-142px, 20px) rotate(-7deg);
 }
 
 .hero-phone-detail {
   z-index: 2;
-  transform: translate(116px, 18px) rotate(5deg);
+  transform: translate(142px, 20px) rotate(7deg);
 }
 
 .phone-stage {
@@ -851,7 +860,16 @@ p {
  * top and a faint smudge at the bottom, which read as unintentional.
  */
 .feature-section-muted {
-  background: rgba(240, 238, 231, 0.5);
+  background:
+    radial-gradient(circle at 10% 28%, rgba(255, 111, 201, 0.1), transparent 31%),
+    radial-gradient(circle at 88% 18%, rgba(95, 85, 236, 0.12), transparent 34%),
+    rgba(240, 238, 231, 0.46);
+}
+
+.feature-section-calculator {
+  background:
+    radial-gradient(circle at 10% 76%, rgba(0, 148, 222, 0.1), transparent 32%),
+    radial-gradient(circle at 90% 24%, rgba(255, 111, 201, 0.1), transparent 31%);
 }
 
 .split-section {
@@ -2119,7 +2137,16 @@ li {
 }
 
 :root[data-resolved-theme="dark"] .feature-section-muted {
-  background: linear-gradient(180deg, rgba(129, 120, 255, 0.1), rgba(52, 182, 243, 0.05));
+  background:
+    radial-gradient(circle at 10% 28%, rgba(255, 111, 201, 0.14), transparent 31%),
+    radial-gradient(circle at 88% 18%, rgba(129, 120, 255, 0.17), transparent 34%),
+    linear-gradient(180deg, rgba(129, 120, 255, 0.07), rgba(52, 182, 243, 0.04));
+}
+
+:root[data-resolved-theme="dark"] .feature-section-calculator {
+  background:
+    radial-gradient(circle at 10% 76%, rgba(52, 182, 243, 0.13), transparent 32%),
+    radial-gradient(circle at 90% 24%, rgba(255, 111, 201, 0.14), transparent 31%);
 }
 
 :root[data-resolved-theme="dark"] .feature-grid-section {
@@ -2280,7 +2307,16 @@ li {
   }
 
   :root:not([data-theme]) .feature-section-muted {
-    background: linear-gradient(180deg, rgba(129, 120, 255, 0.1), rgba(52, 182, 243, 0.05));
+    background:
+      radial-gradient(circle at 10% 28%, rgba(255, 111, 201, 0.14), transparent 31%),
+      radial-gradient(circle at 88% 18%, rgba(129, 120, 255, 0.17), transparent 34%),
+      linear-gradient(180deg, rgba(129, 120, 255, 0.07), rgba(52, 182, 243, 0.04));
+  }
+
+  :root:not([data-theme]) .feature-section-calculator {
+    background:
+      radial-gradient(circle at 10% 76%, rgba(52, 182, 243, 0.13), transparent 32%),
+      radial-gradient(circle at 90% 24%, rgba(255, 111, 201, 0.14), transparent 31%);
   }
 
   :root:not([data-theme]) .feature-grid-section {
@@ -2373,10 +2409,6 @@ li {
     max-width: 760px;
   }
 
-  .value-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .motion-demo {
     grid-template-columns: 1fr;
   }
@@ -2404,6 +2436,20 @@ li {
 @media (min-width: 761px) {
   .compact-menu {
     display: none !important;
+  }
+}
+
+@media (max-width: 1080px) {
+  .header-availability {
+    width: 106px;
+  }
+
+  .availability-label-full {
+    display: none;
+  }
+
+  .availability-label-compact {
+    display: inline;
   }
 }
 
@@ -2510,11 +2556,36 @@ li {
   }
 
   .hero-phone-calculator {
-    transform: translate(-86px, 20px) rotate(-5deg);
+    transform: translate(-105px, 20px) rotate(-7deg);
   }
 
   .hero-phone-detail {
-    transform: translate(86px, 20px) rotate(5deg);
+    transform: translate(105px, 20px) rotate(7deg);
+  }
+
+  .value-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .value-card {
+    min-width: 0;
+    padding: 14px 9px;
+    text-align: center;
+  }
+
+  .value-kicker {
+    margin-bottom: 6px;
+    font-size: 10px;
+  }
+
+  .value-card strong {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+
+  .value-card p {
+    display: none;
   }
 
   .birthday-media {
@@ -2606,7 +2677,6 @@ li {
     display: none;
   }
 
-  .value-grid,
   .summary-grid,
   .privacy-summary,
   .contact-options,
