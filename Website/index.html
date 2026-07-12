@@ -22,7 +22,7 @@
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
     <script src="/assets/theme-init.js?v=20260706g"></script>
-    <link rel="stylesheet" href="/assets/styles.css?v=20260712a">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260712c">
   </head>
   <body>
     <header class="site-header site-header-contextual" data-contextual-availability>
@@ -223,10 +223,10 @@
           <div class="feature-visual animate-on-scroll fade-left stagger-1">
             <div class="phone-frame phone-frame-media phone-frame-video">
               <picture class="app-shot-picture" aria-hidden="true">
-                <source srcset="/assets/app-ages-poster-dark.png?v=20260711b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                <source srcset="/assets/app-ages-poster-dark.png?v=20260712b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
                 <img
                   class="app-shot"
-                  src="/assets/app-ages-poster.png?v=20260711b"
+                  src="/assets/app-ages-poster.png?v=20260712b"
                   alt=""
                   width="1206"
                   height="2622"
@@ -237,17 +237,17 @@
               <video
                 class="app-shot app-video"
                 data-controlled-loop
-                data-light-src="/assets/app-ages.mp4?v=20260707a"
-                data-dark-src="/assets/app-ages-dark.mp4?v=20260707a"
-                data-light-poster="/assets/app-ages-poster.png?v=20260711b"
-                data-dark-poster="/assets/app-ages-poster-dark.png?v=20260711b"
+                data-light-src="/assets/app-ages.mp4?v=20260712b"
+                data-dark-src="/assets/app-ages-dark.mp4?v=20260712b"
+                data-light-poster="/assets/app-ages-poster.png?v=20260712b"
+                data-dark-poster="/assets/app-ages-poster-dark.png?v=20260712b"
                 muted
                 playsinline
                 preload="auto"
-                poster="/assets/app-ages-poster.png?v=20260711b"
+                poster="/assets/app-ages-poster.png?v=20260712b"
                 aria-label="Screen recording of Agely comparing everyone's age against a pinned contact."
               >
-                <source src="/assets/app-ages.mp4?v=20260707a" type="video/mp4">
+                <source src="/assets/app-ages.mp4?v=20260712b" type="video/mp4">
               </video>
               <img
                 class="phone-bezel"
@@ -274,11 +274,11 @@
           <div class="feature-visual birthday-media animate-on-scroll fade-right stagger-1">
             <div class="phone-frame phone-frame-media birthday-phone-primary">
               <picture class="app-shot-picture">
-                <source srcset="/assets/app-upcoming-dark.png?v=20260711b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                <source srcset="/assets/app-upcoming-dark.png?v=20260712b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
                 <img
                   class="app-shot"
-                  src="/assets/app-upcoming.png?v=20260711b"
-                  alt="Agely Upcoming Birthdays tab showing birthdays grouped by month."
+                  src="/assets/app-upcoming.png?v=20260712b"
+                  alt="Agely Upcoming Birthdays tab showing Avery Parker’s birthday today and Theo Brooks’s birthday in three weeks."
                   width="1206"
                   height="2622"
                   loading="lazy"
@@ -296,16 +296,22 @@
                 aria-hidden="true"
               >
             </div>
-            <div class="phone-frame phone-frame-media birthday-phone-secondary" role="img" aria-label="Agely birthday reminders on the iPhone Lock Screen">
-              <div class="lock-screen-preview" aria-hidden="true">
-                <span class="lock-screen-time">9:41</span>
-                <span class="lock-screen-date">Sunday, July 5</span>
-                <picture class="lock-screen-notifications">
-                  <source srcset="/assets/birthday-reminders-dark.png?v=20260707a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
-                  <img src="/assets/birthday-reminders.png?v=20260707a" alt="" width="1120" height="560" loading="lazy" decoding="async">
+            <div class="birthday-lock-visual">
+              <div class="phone-frame phone-frame-media birthday-phone-secondary">
+                <picture class="app-shot-picture">
+                  <source srcset="/assets/birthday-lock-screen-dark.png?v=20260712b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                  <img
+                    class="app-shot"
+                    src="/assets/birthday-lock-screen.png?v=20260712b"
+                    alt="iPhone Lock Screen showing Agely reminders for Avery Parker’s birthday today and Theo Brooks’s birthday in three weeks."
+                    width="1206"
+                    height="2622"
+                    loading="lazy"
+                    decoding="async"
+                  >
                 </picture>
+                <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
               </div>
-              <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
             </div>
           </div>
         </div>
@@ -323,54 +329,43 @@
               <li><span>Choose Cousins to see all six ages.</span></li>
             </ol>
           </div>
-          <div class="calculator-review animate-on-scroll fade-left stagger-1" data-calculator-comparison data-calculator-active="a">
-            <div class="calculator-review-toolbar">
-              <span>Local layout review</span>
-              <div class="calculator-variant-toggle" role="group" aria-label="Calculator layout variant">
-                <button type="button" aria-pressed="true" data-calculator-variant-button="a">Variant A</button>
-                <button type="button" aria-pressed="false" data-calculator-variant-button="b">Variant B</button>
-              </div>
+          <div class="calculator-dual-media calculator-final-media animate-on-scroll fade-left stagger-1">
+            <div class="phone-frame phone-frame-media calculator-photo-phone">
+              <picture class="app-shot-picture">
+                <source srcset="/assets/cousins-photos-dark.jpg?v=20260712b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                <img
+                  class="app-shot"
+                  src="/assets/cousins-photos.jpg?v=20260712b"
+                  alt="Six cousins in the Photos app, with the photo dated June 18, 2021."
+                  width="1206"
+                  height="2622"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </picture>
+              <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
             </div>
-
-            <div class="calculator-variant" data-calculator-variant-panel="a">
-              <div class="phone-frame phone-frame-media calculator-story-phone" role="img" aria-label="Single-phone Calculator story from a Photos date to the six cousins' ages in Agely">
-                <div class="calculator-story-screen" aria-hidden="true">
-                  <div class="calculator-story-photo">
-                    <img src="/assets/cousins-reunion.png?v=20260711b" alt="" width="1448" height="1086" loading="lazy" decoding="async">
-                    <span>Photos · June 18, 2021</span>
-                  </div>
-                  <div class="calculator-story-steps">
-                    <span>Enter date</span>
-                    <span>Choose Cousins</span>
-                    <span>See 6 ages</span>
-                  </div>
-                  <picture class="calculator-story-result">
-                    <source srcset="/assets/app-calculator-dark.png?v=20260711b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
-                    <img src="/assets/app-calculator.png?v=20260711b" alt="" width="1206" height="2622" loading="lazy" decoding="async">
-                  </picture>
-                </div>
-                <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
-              </div>
-            </div>
-
-            <div class="calculator-variant" data-calculator-variant-panel="b" hidden>
-              <div class="calculator-dual-media">
-                <div class="phone-frame phone-frame-media calculator-photo-phone" role="img" aria-label="The reunion photo in Photos, dated June 18, 2021">
-                  <div class="photos-phone-screen" aria-hidden="true">
-                    <div class="photos-phone-toolbar"><span>Photos</span><strong>June 18, 2021</strong></div>
-                    <img src="/assets/cousins-reunion.png?v=20260711b" alt="" width="1448" height="1086" loading="lazy" decoding="async">
-                    <div class="photos-phone-metadata"><strong>June 18, 2021</strong><span>Summer reunion</span></div>
-                  </div>
-                  <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
-                </div>
-                <div class="phone-frame phone-frame-media calculator-result-phone">
-                  <picture class="app-shot-picture">
-                    <source srcset="/assets/app-calculator-dark.png?v=20260711b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
-                    <img class="app-shot" src="/assets/app-calculator.png?v=20260711b" alt="Agely Calculator showing the six cousins' exact ages on June 18, 2021." width="1206" height="2622" loading="lazy" decoding="async">
-                  </picture>
-                  <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
-                </div>
-              </div>
+            <div class="phone-frame phone-frame-media phone-frame-video calculator-result-phone">
+              <picture class="app-shot-picture" aria-hidden="true">
+                <source srcset="/assets/calculator-workflow-poster-dark.png?v=20260712h" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                <img class="app-shot" src="/assets/calculator-workflow-poster.png?v=20260712h" alt="" width="496" height="1080" loading="lazy" decoding="async">
+              </picture>
+              <video
+                class="app-shot app-video"
+                data-controlled-loop
+                data-light-src="/assets/calculator-workflow.mp4?v=20260712h"
+                data-dark-src="/assets/calculator-workflow-dark.mp4?v=20260712h"
+                data-light-poster="/assets/calculator-workflow-poster.png?v=20260712h"
+                data-dark-poster="/assets/calculator-workflow-poster-dark.png?v=20260712h"
+                muted
+                playsinline
+                preload="auto"
+                poster="/assets/calculator-workflow-poster.png?v=20260712h"
+                aria-label="Screen recording of entering June 18, 2021 in Agely and choosing the Cousins group."
+              >
+                <source src="/assets/calculator-workflow.mp4?v=20260712h" type="video/mp4">
+              </video>
+              <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
             </div>
           </div>
         </div>
@@ -419,6 +414,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260711b" defer></script>
+    <script src="/assets/animations.js?v=20260712b" defer></script>
   </body>
 </html>
