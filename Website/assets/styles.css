@@ -969,21 +969,22 @@ p {
 
 .birthday-lock-visual {
   position: absolute;
-  right: -55px;
-  bottom: 34px;
+  right: -58px;
+  top: 50%;
   z-index: 1;
-  width: 265px;
-  aspect-ratio: 1350 / 1800;
+  width: 300px;
+  height: 320px;
   overflow: hidden;
+  transform: translateY(-50%);
   filter: drop-shadow(0 20px 42px rgba(37, 32, 95, 0.18));
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 13%, black 31%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 13%, black 31%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 17%, black 40%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 17%, black 40%);
 }
 
 .phone-frame.birthday-phone-secondary {
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: -260px;
   width: 100%;
   opacity: 0.96;
 }
@@ -2367,8 +2368,14 @@ li {
   .birthday-lock-visual {
     position: relative;
     right: auto;
-    bottom: auto;
-    width: 230px;
+    top: auto;
+    width: 260px;
+    height: 285px;
+    transform: none;
+  }
+
+  .phone-frame.birthday-phone-secondary {
+    top: -225px;
   }
 
   .calculator-dual-media {
