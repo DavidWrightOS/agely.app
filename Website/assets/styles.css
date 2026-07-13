@@ -990,6 +990,18 @@ p {
   opacity: 0.96;
 }
 
+@media (min-width: 1081px) {
+  #birthdays .section-copy {
+    position: relative;
+    left: 56px;
+    max-width: 500px;
+  }
+
+  .birthday-lock-visual {
+    right: -124px;
+  }
+}
+
 .calculator-section-layout {
   grid-template-columns: minmax(0, 0.74fr) minmax(480px, 1.26fr);
   gap: 54px;
@@ -2357,20 +2369,21 @@ li {
   .birthday-media {
     display: grid;
     min-height: 0;
+    justify-content: center;
     justify-items: center;
     gap: 22px;
     padding-left: 0;
   }
 
   .birthday-phone-primary {
-    width: min(100%, 294px);
+    width: min(294px, calc(100vw - 48px));
   }
 
   .birthday-lock-visual {
     position: relative;
     right: auto;
     top: auto;
-    width: min(100%, 294px);
+    width: min(294px, calc(100vw - 48px));
     height: 350px;
     transform: none;
   }
