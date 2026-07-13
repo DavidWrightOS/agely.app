@@ -665,7 +665,7 @@ p {
   z-index: 0;
   width: 89.333333%;
   height: 95%;
-  border-radius: 42px;
+  border-radius: 15.67% / 7.21%;
   background: #f2f1f6;
 }
 
@@ -678,7 +678,7 @@ p {
   width: 89.333333%;
   height: 95%;
   overflow: hidden;
-  border-radius: 42px;
+  border-radius: 15.67% / 7.21%;
   background: #f5f4ef;
 }
 
@@ -710,7 +710,7 @@ p {
   display: block;
   width: 89.333333%;
   height: 95%;
-  border-radius: 42px;
+  border-radius: 15.67% / 7.21%;
   background: #f5f4ef;
   object-fit: cover;
 }
@@ -964,27 +964,28 @@ p {
 
 .birthday-phone-primary {
   z-index: 2;
-  width: min(60%, 260px);
+  width: min(100%, 300px);
 }
 
 .birthday-lock-visual {
   position: absolute;
-  right: -58px;
+  right: -68px;
   top: 50%;
   z-index: 1;
-  width: 300px;
-  height: 320px;
+  width: 320px;
+  height: 390px;
   overflow: hidden;
   transform: translateY(-50%);
   filter: drop-shadow(0 20px 42px rgba(37, 32, 95, 0.18));
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 17%, black 40%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 17%, black 40%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.12) 14%, black 42%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.12) 14%, black 42%);
 }
 
 .phone-frame.birthday-phone-secondary {
   position: absolute;
+  bottom: 0;
   left: 0;
-  top: -260px;
+  top: auto;
   width: 100%;
   opacity: 0.96;
 }
@@ -2362,20 +2363,21 @@ li {
   }
 
   .birthday-phone-primary {
-    width: min(100%, 284px);
+    width: min(100%, 294px);
   }
 
   .birthday-lock-visual {
     position: relative;
     right: auto;
     top: auto;
-    width: 260px;
-    height: 285px;
+    width: min(100%, 294px);
+    height: 350px;
     transform: none;
   }
 
   .phone-frame.birthday-phone-secondary {
-    top: -225px;
+    bottom: 0;
+    top: auto;
   }
 
   .calculator-dual-media {
