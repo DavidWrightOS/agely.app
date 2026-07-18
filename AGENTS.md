@@ -28,6 +28,12 @@ python3 -m http.server 4173 --directory Website
 
 Then visit `http://127.0.0.1:4173/`. Do not validate pages by opening the HTML files directly: the site intentionally uses root-relative URLs such as `/assets/styles.css` and `/privacy/`.
 
+### Persistent private dev site
+
+`./scripts/install-dev-site.sh` installs a launchd LaunchAgent that keeps `scripts/dev-server.sh` serving `Website/` at `http://127.0.0.1:4173/` across logins and reboots, so local review is always one bookmark away. The server binds to loopback only and is never exposed to the local network or the internet.
+
+To review from an iPhone (or any other personal device) without making the dev site public, front the port with Tailscale: install and sign in to Tailscale on the Mac and the phone, run `tailscale serve --bg 4173` once on the Mac, and bookmark the printed `https://<mac>.<tailnet>.ts.net` address. Only devices signed into the same tailnet can reach it. `./scripts/install-dev-site.sh --uninstall` removes the LaunchAgent, and `tailscale serve --https=443 off` stops the tailnet sharing.
+
 ## Editing conventions
 
 - Use semantic HTML, shared CSS, and dependency-free browser JavaScript. Do not introduce a framework, build system, or third-party runtime for a small change.
