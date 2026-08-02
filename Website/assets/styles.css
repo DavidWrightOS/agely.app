@@ -795,6 +795,7 @@ p {
 }
 
 .value-card,
+.calculator-mode-card,
 .summary-item,
 .detail-panel,
 .notice,
@@ -1032,6 +1033,102 @@ p {
 .phone-frame.calculator-result-phone {
   z-index: 2;
   width: 300px;
+}
+
+.calculator-mode-cards {
+  display: grid;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.calculator-mode-card {
+  position: relative;
+  padding: 20px;
+  transition: transform 300ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.calculator-mode-card.is-selected {
+  border-color: color-mix(in srgb, var(--accent-app) 36%, var(--border));
+  box-shadow: var(--shadow-md);
+}
+
+/*
+ * The dimmed "not selected" treatment only makes sense when clicking can
+ * select the card, so it is gated on the .js class like other JS-only states.
+ */
+.js .calculator-mode-card:not(.is-selected) {
+  transform: scale(0.965);
+}
+
+.js .calculator-mode-card:not(.is-selected):hover {
+  transform: scale(0.98);
+  border-color: color-mix(in srgb, var(--accent-app) 24%, var(--border));
+}
+
+.calculator-mode-kicker {
+  margin: 0;
+}
+
+.calculator-mode-toggle {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 820;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Stretch the toggle's hit area over the whole card. */
+.calculator-mode-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+}
+
+.calculator-mode-toggle:focus-visible {
+  outline: none;
+}
+
+.calculator-mode-toggle:focus-visible::after {
+  outline: 3px solid color-mix(in srgb, var(--accent-app) 56%, transparent);
+  outline-offset: 3px;
+}
+
+.calculator-mode-card h3 {
+  margin: 10px 0 8px;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.section-copy .calculator-mode-card p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.calculator-mode-card .step-list {
+  margin: 16px 0 0;
+  gap: 11px;
+}
+
+.calculator-demo-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 550ms ease, visibility 0s linear 550ms;
+}
+
+.calculator-demo-layer.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 550ms ease, visibility 0s;
 }
 
 .feature-grid-section {
@@ -1897,6 +1994,7 @@ li {
 
 :root[data-resolved-theme="dark"] .floating-card,
 :root[data-resolved-theme="dark"] .value-card,
+:root[data-resolved-theme="dark"] .calculator-mode-card,
 :root[data-resolved-theme="dark"] .summary-item,
 :root[data-resolved-theme="dark"] .detail-panel,
 :root[data-resolved-theme="dark"] .notice,
@@ -1912,6 +2010,12 @@ li {
 :root[data-resolved-theme="dark"] .floating-card {
   border-color: rgba(255, 255, 255, 0.16);
   background: rgba(23, 27, 43, 0.74);
+}
+
+/* The dark surface list above outranks .is-selected, so restate its accent. */
+:root[data-resolved-theme="dark"] .calculator-mode-card.is-selected {
+  border-color: color-mix(in srgb, var(--accent-app) 36%, var(--border));
+  box-shadow: var(--shadow-md);
 }
 
 :root[data-resolved-theme="dark"] .feature-section-muted {
@@ -2067,6 +2171,7 @@ li {
 
   :root:not([data-theme]) .floating-card,
   :root:not([data-theme]) .value-card,
+  :root:not([data-theme]) .calculator-mode-card,
   :root:not([data-theme]) .summary-item,
   :root:not([data-theme]) .detail-panel,
   :root:not([data-theme]) .notice,
@@ -2082,6 +2187,12 @@ li {
   :root:not([data-theme]) .floating-card {
     border-color: rgba(255, 255, 255, 0.16);
     background: rgba(23, 27, 43, 0.74);
+  }
+
+  /* The dark surface list above outranks .is-selected, so restate its accent. */
+  :root:not([data-theme]) .calculator-mode-card.is-selected {
+    border-color: color-mix(in srgb, var(--accent-app) 36%, var(--border));
+    box-shadow: var(--shadow-md);
   }
 
   :root:not([data-theme]) .feature-section-muted {
@@ -2287,6 +2398,10 @@ li {
   .split-section,
   .trust-grid {
     gap: 36px;
+  }
+
+  .calculator-mode-card {
+    padding: 16px;
   }
 
   h1 {

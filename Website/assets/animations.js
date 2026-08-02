@@ -237,6 +237,7 @@
       var hasStarted = false;
       var lastPlayheadTime = -1;
       var stalledTicks = 0;
+      var isDeactivated = video.hasAttribute("data-loop-inactive");
 
       video.loop = true;
       video.autoplay = false;
@@ -271,8 +272,8 @@
         video.classList.toggle("is-loop-visible", isVisible);
       }
 
-      function seekToLoopStart() {
-        if (loopStartSeconds <= 0) { return; }
+      function seekToLoopStart(forceSeek) {
+        if (!forceSeek && loopStartSeconds <= 0) { return; }
 
         function seek() {
           try {
@@ -291,7 +292,7 @@
       }
 
       function tryPlay() {
-        if (!hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
+        if (isDeactivated || !hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
 
         var playPromise = video.play();
         if (playPromise && typeof playPromise.catch === "function") {
@@ -301,6 +302,16 @@
             setVisible(false);
           });
         }
+      }
+
+      function handleReducedMotionChange() {
+        if (reduceMotionQuery.matches) {
+          video.pause();
+          setVisible(false);
+          return;
+        }
+
+        tryPlay();
       }
 
       // Fade the video in only while frames are actually advancing. Every
@@ -328,14 +339,40 @@
         tryPlay();
       });
 
+      // Videos stacked behind another demo in the same phone frame are marked
+      // data-loop-inactive; every play path above refuses while the flag is
+      // set, so the watchdog cannot resurrect a deliberately paused demo.
+      // bindCalculatorModeSwitcher drives the flag via these events.
+      video.addEventListener("agelyloopactivate", function () {
+        isDeactivated = false;
+        video.removeAttribute("data-loop-inactive");
+        // A deliberate selection outranks waiting for scroll visibility.
+        hasStarted = true;
+        // Restart from the top: a demo resumed mid-workflow reads as broken.
+        seekToLoopStart(true);
+        tryPlay();
+      });
+
+      video.addEventListener("agelyloopdeactivate", function () {
+        isDeactivated = true;
+        video.setAttribute("data-loop-inactive", "");
+        video.pause();
+      });
+
       document.addEventListener("visibilitychange", function () {
         if (!document.hidden) { tryPlay(); }
       });
 
+      if (reduceMotionQuery.addEventListener) {
+        reduceMotionQuery.addEventListener("change", handleReducedMotionChange);
+      } else if (reduceMotionQuery.addListener) {
+        reduceMotionQuery.addListener(handleReducedMotionChange);
+      }
+
       // Watchdog: if the playhead stops advancing while the loop should be
       // running, nudge play(); after repeated stalled checks, reload the file.
       window.setInterval(function () {
-        if (!hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
+        if (isDeactivated || !hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
 
         var isAdvancing = !video.paused && video.currentTime !== lastPlayheadTime;
         lastPlayheadTime = video.currentTime;
@@ -365,12 +402,6 @@
       video.load();
       seekToLoopStart();
 
-      if (reduceMotionQuery.matches) {
-        // Respect reduced motion: playback never starts, so the still-frame
-        // fallback simply stays in place.
-        return;
-      }
-
       function beginWhenVisible() {
         if (hasStarted) { return; }
         hasStarted = true;
@@ -392,6 +423,53 @@
       } else {
         beginWhenVisible();
       }
+    });
+  }
+
+  /*
+   * The calculator section pairs two selectable story cards with two demo
+   * recordings stacked in one phone frame. The switcher owns card and layer
+   * state (aria-pressed, .is-selected, .is-active); playback stays inside
+   * bindControlledVideoLoops, reached only via the agelyloop* events.
+   */
+  function bindCalculatorModeSwitcher() {
+    var section = document.getElementById("calculator");
+    if (!section) { return; }
+
+    var buttons = Array.prototype.slice.call(section.querySelectorAll("[data-calculator-mode]"));
+    var layers = Array.prototype.slice.call(section.querySelectorAll("[data-calculator-demo]"));
+    if (!buttons.length || !layers.length) { return; }
+
+    buttons.forEach(function (button) {
+      button.removeAttribute("hidden");
+    });
+
+    function activateMode(mode) {
+      buttons.forEach(function (button) {
+        var isSelected = button.dataset.calculatorMode === mode;
+        button.setAttribute("aria-pressed", String(isSelected));
+
+        var card = button.closest(".calculator-mode-card");
+        if (card) { card.classList.toggle("is-selected", isSelected); }
+      });
+
+      layers.forEach(function (layer) {
+        var isActive = layer.dataset.calculatorDemo === mode;
+        layer.classList.toggle("is-active", isActive);
+
+        var video = layer.querySelector("video[data-controlled-loop]");
+        if (video) {
+          video.dispatchEvent(new CustomEvent(isActive ? "agelyloopactivate" : "agelyloopdeactivate"));
+        }
+      });
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        // Reselecting the current card would only restart its demo.
+        if (button.getAttribute("aria-pressed") === "true") { return; }
+        activateMode(button.dataset.calculatorMode);
+      });
     });
   }
 
@@ -491,6 +569,7 @@
     bindSamePageAnchors();
     bindContextualAvailability();
     bindControlledVideoLoops();
+    bindCalculatorModeSwitcher();
     initScrollAnimations();
   });
 }());

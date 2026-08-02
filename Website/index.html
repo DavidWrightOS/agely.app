@@ -22,7 +22,7 @@
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
     <script src="/assets/theme-init.js?v=20260706g"></script>
-    <link rel="stylesheet" href="/assets/styles.css?v=20260713c">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260731a">
   </head>
   <body>
     <header class="site-header site-header-contextual" data-contextual-availability>
@@ -321,13 +321,33 @@
         <div class="site-shell split-section calculator-section-layout">
           <div class="section-copy animate-on-scroll fade-right">
             <p class="eyebrow">Calculator</p>
-            <h2>How old was everyone in that photo?</h2>
-            <p>Enter any past date and see everyone’s exact age on that day.</p>
-            <ol class="step-list">
-              <li><span>Check the date in Photos.</span></li>
-              <li><span>Enter it in Agely.</span></li>
-              <li><span>Choose Cousins to see all five ages.</span></li>
-            </ol>
+            <h2>Start with a date. Or with an age.</h2>
+            <div class="calculator-mode-cards" role="group" aria-label="Calculator demos">
+              <article class="calculator-mode-card is-selected">
+                <p class="calculator-mode-kicker">
+                  <button class="calculator-mode-toggle" type="button" aria-pressed="true" aria-controls="calculator-demo" data-calculator-mode="date" hidden>Input date</button>
+                </p>
+                <h3>How old was everyone in that photo?</h3>
+                <p>Enter any past date and see everyone’s exact age on that day.</p>
+                <ol class="step-list">
+                  <li><span>Check the date in Photos.</span></li>
+                  <li><span>Enter it in Agely.</span></li>
+                  <li><span>Choose Cousins to see all five ages.</span></li>
+                </ol>
+              </article>
+              <article class="calculator-mode-card">
+                <p class="calculator-mode-kicker">
+                  <button class="calculator-mode-toggle" type="button" aria-pressed="false" aria-controls="calculator-demo" data-calculator-mode="age" hidden>Input age</button>
+                </p>
+                <h3>When was your daughter exactly that age?</h3>
+                <p>Friends visit with their 1½-year-old. Enter an age and see the exact date each person was—or will be—that old.</p>
+                <ol class="step-list">
+                  <li><span>Enter 1 year, 6 months in Agely.</span></li>
+                  <li><span>Choose Cousins to see each date.</span></li>
+                  <li><span>Pull up her photos from that day.</span></li>
+                </ol>
+              </article>
+            </div>
           </div>
           <div class="calculator-dual-media calculator-final-media animate-on-scroll fade-left stagger-1">
             <div class="phone-frame phone-frame-media calculator-photo-phone">
@@ -345,26 +365,50 @@
               </picture>
               <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
             </div>
-            <div class="phone-frame phone-frame-media phone-frame-video calculator-result-phone">
-              <picture class="app-shot-picture" aria-hidden="true">
-                <source srcset="/assets/calculator-workflow-poster-dark.png?v=20260714a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
-                <img class="app-shot" src="/assets/calculator-workflow-poster.png?v=20260714a" alt="" width="804" height="1748" loading="lazy" decoding="async">
-              </picture>
-              <video
-                class="app-shot app-video"
-                data-controlled-loop
-                data-light-src="/assets/calculator-workflow.mp4?v=20260714a"
-                data-dark-src="/assets/calculator-workflow-dark.mp4?v=20260714a"
-                data-light-poster="/assets/calculator-workflow-poster.png?v=20260714a"
-                data-dark-poster="/assets/calculator-workflow-poster-dark.png?v=20260714a"
-                muted
-                playsinline
-                preload="auto"
-                poster="/assets/calculator-workflow-poster.png?v=20260714a"
-                aria-label="Screen recording of entering June 18, 2021 in Agely and choosing the Cousins group."
-              >
-                <source src="/assets/calculator-workflow.mp4?v=20260714a" type="video/mp4">
-              </video>
+            <div class="phone-frame phone-frame-media phone-frame-video calculator-result-phone" id="calculator-demo">
+              <div class="calculator-demo-layer is-active" data-calculator-demo="date">
+                <picture class="app-shot-picture" aria-hidden="true">
+                  <source srcset="/assets/calculator-workflow-poster-dark.png?v=20260731a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                  <img class="app-shot" src="/assets/calculator-workflow-poster.png?v=20260731a" alt="" width="804" height="1748" loading="lazy" decoding="async">
+                </picture>
+                <video
+                  class="app-shot app-video"
+                  data-controlled-loop
+                  data-light-src="/assets/calculator-workflow.mp4?v=20260731a"
+                  data-dark-src="/assets/calculator-workflow-dark.mp4?v=20260731a"
+                  data-light-poster="/assets/calculator-workflow-poster.png?v=20260731a"
+                  data-dark-poster="/assets/calculator-workflow-poster-dark.png?v=20260731a"
+                  muted
+                  playsinline
+                  preload="auto"
+                  poster="/assets/calculator-workflow-poster.png?v=20260731a"
+                  aria-label="Screen recording of entering June 18, 2021 in Agely and choosing the Cousins group."
+                >
+                  <source src="/assets/calculator-workflow.mp4?v=20260731a" type="video/mp4">
+                </video>
+              </div>
+              <div class="calculator-demo-layer" data-calculator-demo="age">
+                <picture class="app-shot-picture" aria-hidden="true">
+                  <source srcset="/assets/calculator-age-workflow-poster-dark.png?v=20260731a" media="(prefers-color-scheme: dark)" data-theme-dark-source>
+                  <img class="app-shot" src="/assets/calculator-age-workflow-poster.png?v=20260731a" alt="" width="804" height="1748" loading="lazy" decoding="async">
+                </picture>
+                <video
+                  class="app-shot app-video"
+                  data-controlled-loop
+                  data-loop-inactive
+                  data-light-src="/assets/calculator-age-workflow.mp4?v=20260731a"
+                  data-dark-src="/assets/calculator-age-workflow-dark.mp4?v=20260731a"
+                  data-light-poster="/assets/calculator-age-workflow-poster.png?v=20260731a"
+                  data-dark-poster="/assets/calculator-age-workflow-poster-dark.png?v=20260731a"
+                  muted
+                  playsinline
+                  preload="metadata"
+                  poster="/assets/calculator-age-workflow-poster.png?v=20260731a"
+                  aria-label="Screen recording of entering an age of 1 year, 6 months in Agely and choosing the Cousins group."
+                >
+                  <source src="/assets/calculator-age-workflow.mp4?v=20260731a" type="video/mp4">
+                </video>
+              </div>
               <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
             </div>
           </div>
@@ -414,6 +458,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260712b" defer></script>
+    <script src="/assets/animations.js?v=20260731a" defer></script>
   </body>
 </html>
