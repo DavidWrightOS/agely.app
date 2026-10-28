@@ -60,6 +60,7 @@ Consult this section whenever adding, changing, or reviewing user-facing wording
 ### Shared terminology
 
 - Use **Agely**, **Ages**, **Upcoming**, **Calculator**, and **Settings** when naming the app and its tabs.
+- Use **Touch and Hold** for the gesture label and *touch and hold* in instructions, rather than *long press*.
 - Use **Default Tab** for the launch preference and **Group Filters** for the filter-settings destination. Use *group filter bar* in prose about the list control.
 - Distinguish **Birthday Reminders** (notifications) from **Birthday Celebrations** (the in-app experience). Describe the latter as a **celebratory message**, rather than a birthday card or alert.
 - Preserve context: **Add Contact** names an action, while **New Contact** can title an editor; **Manage Groups** names an entry action, while **Groups** can title its destination.
