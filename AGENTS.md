@@ -1,5 +1,14 @@
 # AGENTS.md
 
+## Git history and commit workflow
+
+- Before beginning a new implementation task, inspect staged, unstaged, and untracked changes. If any exist, ask the user what to do with them before implementing; do not silently stash, discard, stage, or include them. Reuse the user's explicit disposition for those exact changes. A direct request to commit existing changes already authorizes that work.
+- Unless the user explicitly says otherwise, commit verified changes locally as part of implementation without asking for separate commit permission. Do not push unless the user explicitly requests a push.
+- Every implementation plan includes an ordered sequence of practical commits: each commit's purpose, scope, dependencies, and relevant verification. Routine boundary adjustments may preserve the approved scope and keep each commit functional; material scope changes still require human review.
+- Group commits by behavior or purpose, with supporting tests, comments and documentation in the commit they support. Each commit must build and function independently. Use temporary source adjustments when needed to verify intermediate states. A single cohesive change may use one commit; do not force artificial splits or commit broken intermediate code.
+- Verify each actual commit state before committing with checks appropriate to its change. Do not defer all verification until the final combined tree or create incomplete commits merely to make the checkout clean.
+- Write clear outcome-focused titles and useful bodies explaining intent, rationale, tradeoffs, or a bug's root cause and solution. Report actual commit SHAs/titles and any remaining changes. Suggest messages only when the user requested that work remain uncommitted.
+
 ## Repository purpose
 
 This repository contains the public static website for Agely at `https://agely.app`. The iOS app source is maintained in a separate private repository. Keep this repository limited to public website code, public assets, policy text, and deployment configuration.
