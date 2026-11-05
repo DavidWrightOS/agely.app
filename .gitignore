@@ -1,0 +1,6 @@
+# Keep this file versionable even when personal global rules ignore *.gitignore.
+!/.gitignore
+
+# Keep session handoffs local while versioning the workflow in AGENTS.md.
+/Docs/Development/current-plan.md
+/Docs/Development/PlanArchive/

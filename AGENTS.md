@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Planning handoff
+
+Use `$save-plan` to save a finalized plan and `$execute-plan` in a fresh chat to implement it; turn off Plan mode before either.
+
 ## Git history and commit workflow
 
 - Before beginning a new implementation task, inspect staged, unstaged, and untracked changes. If any exist, ask the user what to do with them before implementing; do not silently stash, discard, stage, or include them. Reuse the user's explicit disposition for those exact changes. A direct request to commit existing changes already authorizes that work.
