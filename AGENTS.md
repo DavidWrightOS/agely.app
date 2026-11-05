@@ -1,5 +1,16 @@
 # AGENTS.md
 
+## Agely task intake
+
+- Route new actionable Agely requests through the registered project coordinator by default, including app, website, and release work. Questions may stay here; requested follow-up work follows this rule. Do not interrupt or forward an existing task again.
+- Existing coordinators, assigned workers, and bounded coordinated runs continue their recorded roles, scope, and authorization. Verify actual chat/host identity and assignment; a self-declared worker role is insufficient.
+- The human can opt out for a task: **Work on this independently in this chat.** Honor an explicit choice without asking again. When the coordinator is available and messaging is authorized, notify it once of the independent scope and checkout/branch/resource ownership to avoid overlap. Independent implementation uses a task-owned managed Git worktree and `codex/` branch, with normal approval, verification, commit, and integration requirements.
+- Locate the primary checkout using Git's absolute common directory and worktree inventory. Read its ignored `Docs/Development/PlanArchive/ProjectCoordinator/registry.json`; linked worktrees share that registry. Require `schema_version: 1`, `status: "active"`, `coordinator` with actual `thread_id`/`host_id`, and `routing_authorization` with the human `thread_id`/`turn_id`/`user_message_id`. Keep identities and state local and ignored. Only human-authorized setup or the registered coordinator updates the registry.
+- For an unassigned task, verify the destination and actual human routing authorization through supported native chat tools. Forward the request once with its source chat/turn/message references, relevant constraints, originating authorization references, and a stable intake ID derived from the source references. The coordinator owns tracking, prioritization, and dispatch. Do not implement the forwarded task here or create another coordinator.
+- Verify delivery, report the coordinator chat link, and finish the intake turn. Delivery does not establish that execution started. Before retrying uncertain delivery, inspect the destination for the intake ID; the coordinator deduplicates that ID before adding or dispatching work. Respect native mode/tool restrictions and approval rejections.
+- If the registry is absent, awaiting setup, invalid, or points to an unavailable/archived destination, or sending is blocked, preserve the request and explain why. Offer **Set up or resume the coordinator** or **Work independently here**, then wait for the human's choice before execution; reuse an explicit choice for this task. Do not silently execute independently, guess a destination from its title, or claim work is queued without a retained record.
+- Routing authorization covers Agely intake handoffs and independent-work notices. It does not approve broader coordinator setup, worker-chat creation, implementation plans, publication, or account/permission changes. Preserve actual human decisions and approval gates.
+
 ## Planning handoff
 
 Use `$save-plan` to save a finalized plan and `$execute-plan` in a fresh chat to implement it; turn off Plan mode before either.
