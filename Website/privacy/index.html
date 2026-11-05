@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Privacy Policy | Agely</title>
-    <meta name="description" content="Agely privacy policy for app data, iCloud sync, analytics, diagnostics, and support requests.">
+    <meta name="description" content="Agely privacy policy for app data, iCloud sync, analytics, diagnostics, feedback, and privacy requests.">
     <link rel="canonical" href="https://agely.app/privacy/">
     <meta property="og:title" content="Privacy Policy | Agely">
-    <meta property="og:description" content="How Agely handles app data, iCloud sync, analytics, diagnostics, and support requests.">
+    <meta property="og:description" content="How Agely handles app data, iCloud sync, analytics, diagnostics, feedback, and privacy requests.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://agely.app/privacy/">
     <meta property="og:site_name" content="Agely">
@@ -17,14 +17,15 @@
     <meta property="og:image:alt" content="Agely app preview showing age and birthday tracking on iPhone.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Privacy Policy | Agely">
-    <meta name="twitter:description" content="How Agely handles app data, iCloud sync, analytics, diagnostics, and support requests.">
+    <meta name="twitter:description" content="How Agely handles app data, iCloud sync, analytics, diagnostics, feedback, and privacy requests.">
     <meta name="twitter:image" content="https://agely.app/assets/social-preview.png?v=20260731a">
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
     <script src="/assets/theme-init.js?v=20260706g"></script>
-    <link rel="stylesheet" href="/assets/styles.css?v=20260731a">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261105a">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="site-header">
       <div class="site-shell nav">
         <a class="brand" href="/" aria-label="Agely home">
@@ -37,12 +38,7 @@
             <span class="availability-label-full">Coming soon to the App Store</span>
             <span class="availability-label-compact">Coming soon</span>
           </span>
-          <nav class="nav-links desktop-nav" aria-label="Primary">
-            <a href="/#features">Features</a>
-            <a href="/privacy/" aria-current="page">Privacy</a>
-            <a href="/support/">Contact Us</a>
-          </nav>
-          <div class="theme-menu-wrap desktop-theme-control" data-theme-menu>
+          <div class="theme-menu-wrap" data-theme-menu>
             <button class="theme-menu-button" type="button" aria-label="Appearance" aria-haspopup="menu" aria-expanded="false" aria-controls="appearance-menu" data-theme-menu-button>
               <span class="theme-current-icon" aria-hidden="true">
                 <svg class="theme-icon theme-mode-icon theme-mode-system" viewBox="0 0 24 24">
@@ -106,36 +102,16 @@
               </button>
             </div>
           </div>
-          <button class="compact-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu" data-site-menu-toggle>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-          </button>
-        </div>
-      </div>
-      <div class="site-shell compact-menu" id="site-menu" data-site-menu hidden>
-        <nav class="compact-nav-links" aria-label="Primary">
-          <a href="/#features">Features</a>
-          <a href="/privacy/" aria-current="page">Privacy</a>
-          <a href="/support/">Contact Us</a>
-        </nav>
-        <div class="compact-appearance">
-          <span class="compact-appearance-label">Appearance</span>
-          <div class="theme-segmented-control" role="group" aria-label="Appearance">
-            <button type="button" aria-pressed="true" data-theme-option="system">System</button>
-            <button type="button" aria-pressed="false" data-theme-option="light">Light</button>
-            <button type="button" aria-pressed="false" data-theme-option="dark">Dark</button>
-          </div>
         </div>
       </div>
     </header>
 
-    <main class="site-shell legal-page">
+    <main class="site-shell legal-page" id="main-content" tabindex="-1">
       <section class="page-hero animate-on-scroll fade-up">
         <p class="eyebrow">Privacy Policy</p>
         <h1>Your Agely data stays private.</h1>
         <p class="lede">Everything you save in Agely stays on your device or in your private iCloud account. Limited analytics and diagnostics that are not linked to you help improve the app, and you can turn them off in Settings.</p>
-        <p class="meta">Last updated: July 11, 2026</p>
+        <p class="meta">Last updated: October 27, 2026</p>
       </section>
 
       <article class="content legal-content">
@@ -179,6 +155,7 @@
             <li>aggregate counts, booleans, durations, coarse status values, and sanitized error categories</li>
             <li>crash reports, performance diagnostics, and non-fatal diagnostic events</li>
           </ul>
+          <p>Agely uses a temporary session identifier to group analytics and diagnostic events from the same foreground session. A new identifier is generated when a session starts. It is not used as a persistent user, device, or installation identifier and is not linked to your Agely content, feedback, or iCloud account.</p>
           <p>Agely treats this telemetry as not linked to you because the app does not add app-owned user or device identifiers, does not send contact content, and does not connect analytics or crash reports to support requests or iCloud account information. Agely is designed so the App Store data categories Identifiers, Usage Data, and Diagnostics can be listed as Data Not Linked to You.</p>
           <p>You can turn off <strong>Share Analytics &amp; Diagnostics</strong> in Agely Settings. Turning it off stops Agely from sending future analytics events, non-fatal diagnostics, and crash reports from that device. It does not delete telemetry that was already collected before the setting was turned off.</p>
         </section>
@@ -191,8 +168,8 @@
             <li>birthdays, birth years, ages for specific contacts, or raw notification dates and times</li>
             <li>notes text, search text, filter text, imported address-book contents, or other free-form text you enter</li>
             <li>photos, image bytes, image filenames, crop rectangles, or photo identifiers</li>
-            <li>app-owned Diagnostics User IDs, app-owned Diagnostics Device IDs, or other Agely-generated telemetry IDs</li>
-            <li>Apple ID, iCloud email address, CloudKit record IDs, IDFA, IDFV, device name, or precise location</li>
+            <li>app-owned user, device, or installation identifiers</li>
+            <li>Apple Account, iCloud email address, CloudKit record IDs, IDFA, IDFV, device name, or precise location</li>
           </ul>
         </section>
 
@@ -214,7 +191,7 @@
             <li>to provide app functionality, including local storage, iCloud sync, birthday calculations, groups, photos, settings, and notifications</li>
             <li>to understand app usage, retention, lifecycle behavior, funnels, paths, and feature health</li>
             <li>to diagnose crashes, performance issues, sync problems, and unexpected errors</li>
-            <li>to respond to support and privacy requests using information you choose to provide</li>
+            <li>to review feedback and respond to privacy requests using information you choose to provide</li>
             <li>to maintain app security, integrity, and operational reliability</li>
           </ul>
         </section>
@@ -239,12 +216,7 @@
         <section class="policy-section" aria-labelledby="requests">
           <h2 id="requests">Access, Deletion, and Correction Requests</h2>
           <p>To make a privacy request, email <a href="mailto:privacy@agely.app">privacy@agely.app</a>. If your request relates to a crash, bug, or diagnostic event, include the app version, iOS version, device model, approximate date and time, and a short description when you can.</p>
-          <p>Do not send contact names, birthdays, photos, notes, Apple ID, iCloud email address, or other app content unless it is necessary for your request. Agely does not provide Diagnostics IDs in Settings because telemetry is not linked to an app-owned user or device identifier.</p>
-        </section>
-
-        <section class="policy-section" aria-labelledby="children">
-          <h2 id="children">Children</h2>
-          <p>Agely is a general-audience app and is not directed to children under 13. A user may choose to save a child's name, birthday, notes, or photo; that app data stays on the user's device or, if enabled, in the user's private iCloud account as described above. Agely's analytics and diagnostics are not linked to a person and are designed not to include app contact data. If a child contacts Agely directly for support or privacy help, Agely receives the information included in that message. A parent or guardian with a question about a child's information can contact <a href="mailto:privacy@agely.app">privacy@agely.app</a>.</p>
+          <p>Do not send contact names, birthdays, photos, notes, Apple Account, iCloud email address, or other app content unless it is necessary for your request. Agely does not provide Diagnostics IDs in Settings because telemetry is not linked to an app-owned user or device identifier.</p>
         </section>
 
         <section class="policy-section" aria-labelledby="changes">
@@ -255,7 +227,7 @@
         <section class="policy-section contact-panel" aria-labelledby="contact">
           <h2 id="contact">Contact</h2>
           <p>Privacy questions and requests: <a href="mailto:privacy@agely.app">privacy@agely.app</a></p>
-          <p>General help: <a href="mailto:support@agely.app">support@agely.app</a></p>
+          <p>Feedback: <a href="mailto:support@agely.app?subject=Agely%20Feedback">support@agely.app</a></p>
         </section>
       </article>
     </main>
@@ -265,8 +237,8 @@
         <span>&copy; 2026 Agely</span>
         <div class="footer-links">
           <a href="/#features">Features</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="/support/">Contact Us</a>
+          <a href="/privacy/" aria-current="page">Privacy</a>
+          <a href="/support/">Feedback</a>
         </div>
         <div class="footer-appearance" aria-label="Appearance">
           <div class="theme-segmented-control theme-segmented-footer" role="group" aria-label="Appearance">
@@ -277,6 +249,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260731a" defer></script>
+    <script src="/assets/animations.js?v=20261105a" defer></script>
   </body>
 </html>

@@ -42,6 +42,7 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
+  cursor: default;
   font-size: 17px;
   line-height: 1.62;
 }
@@ -53,12 +54,58 @@ img {
 
 a {
   color: var(--accent);
+  cursor: pointer;
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.2em;
 }
 
+button,
+[role="button"],
+[role="menuitemradio"] {
+  cursor: pointer;
+}
+
 a:hover {
   color: var(--accent-strong);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent-app) 56%, transparent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  z-index: 100;
+  border-radius: 10px;
+  padding: 9px 13px;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  font-size: 14px;
+  font-weight: 760;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 24px));
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .site-shell {
@@ -144,24 +191,6 @@ a:hover {
   box-shadow: var(--shadow-sm);
 }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 15px;
-  font-weight: 640;
-}
-
-.nav-links a {
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.nav-links a:hover,
-.nav-links a[aria-current="page"] {
-  color: var(--text);
-}
-
 .nav-actions {
   display: inline-flex;
   align-items: center;
@@ -191,19 +220,17 @@ a:hover {
 
 .theme-menu-button,
 .theme-menu-row,
-.theme-segmented-control button,
-.compact-menu-toggle {
+.theme-segmented-control button {
   appearance: none;
   border: 0;
   font: inherit;
 }
 
-.theme-menu-button,
-.compact-menu-toggle {
+.theme-menu-button {
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--border);
   border-radius: 13px;
   color: var(--text);
@@ -213,8 +240,7 @@ a:hover {
   transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
 }
 
-.theme-menu-button:hover,
-.compact-menu-toggle:hover {
+.theme-menu-button:hover {
   border-color: var(--border-strong);
   transform: translateY(-1px);
 }
@@ -292,85 +318,6 @@ a:hover {
   opacity: 1;
 }
 
-.compact-menu-toggle {
-  display: none;
-  gap: 3px;
-}
-
-.menu-icon-line {
-  width: 16px;
-  height: 2px;
-  border-radius: 999px;
-  background: currentColor;
-  transform-origin: center;
-  transition: opacity 180ms ease, transform 180ms ease;
-}
-
-.compact-menu-toggle[aria-expanded="true"] .menu-icon-line:nth-child(1) {
-  transform: translateY(5px) rotate(45deg);
-}
-
-.compact-menu-toggle[aria-expanded="true"] .menu-icon-line:nth-child(2) {
-  opacity: 0;
-}
-
-.compact-menu-toggle[aria-expanded="true"] .menu-icon-line:nth-child(3) {
-  transform: translateY(-5px) rotate(-45deg);
-}
-
-.compact-menu {
-  display: none;
-}
-
-.compact-menu:not([hidden]) {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 18px;
-  z-index: 30;
-  display: grid;
-  gap: 12px;
-  width: min(292px, calc(100vw - 36px));
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 12px;
-  background: color-mix(in srgb, var(--surface) 96%, transparent);
-  box-shadow: var(--shadow-md);
-}
-
-.compact-nav-links {
-  display: grid;
-  gap: 4px;
-}
-
-.compact-nav-links a {
-  border-radius: 12px;
-  padding: 10px 12px;
-  color: var(--muted);
-  font-size: 15px;
-  font-weight: 720;
-  text-decoration: none;
-}
-
-.compact-nav-links a:hover,
-.compact-nav-links a[aria-current="page"] {
-  color: var(--text);
-  background: var(--accent-soft);
-}
-
-.compact-appearance {
-  display: grid;
-  justify-items: start;
-  gap: 8px;
-  border-top: 1px solid var(--border);
-  padding-top: 12px;
-}
-
-.compact-appearance-label {
-  color: var(--subtle);
-  font-size: 13px;
-  font-weight: 720;
-}
-
 .theme-segmented-control {
   display: inline-grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -381,7 +328,6 @@ a:hover {
   background: color-mix(in srgb, var(--surface-muted) 72%, transparent);
 }
 
-.compact-appearance .theme-segmented-control,
 .theme-segmented-footer {
   width: min(var(--theme-segmented-fixed-width), 100%);
 }
@@ -725,7 +671,7 @@ p {
 .app-video {
   object-fit: cover;
   opacity: 0;
-  transition: opacity 700ms ease;
+  transition: opacity 360ms ease;
 }
 
 .app-video.is-loop-visible {
@@ -811,15 +757,20 @@ p {
   display: block;
   padding: 20px;
   color: var(--text);
+  cursor: pointer;
   text-decoration: none;
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: transform 200ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .value-card:hover {
   color: var(--text);
   border-color: color-mix(in srgb, var(--accent-app) 36%, var(--border));
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.015);
+}
+
+.value-card:active {
+  transform: translateY(0) scale(0.99);
 }
 
 .value-card:focus-visible {
@@ -957,38 +908,28 @@ p {
 
 .birthday-media {
   position: relative;
-  width: min(100%, 560px);
-  min-height: 590px;
-  justify-content: flex-start;
-  padding-left: 20px;
+  width: min(100%, 500px);
+  min-height: 560px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 18px;
 }
 
 .birthday-phone-primary {
-  z-index: 2;
-  width: min(100%, 300px);
+  flex: 0 1 270px;
+  width: min(56%, 270px);
 }
 
 .birthday-lock-visual {
-  position: absolute;
-  right: -68px;
-  top: 50%;
-  z-index: 1;
-  width: 320px;
-  height: 390px;
-  overflow: hidden;
-  transform: translateY(-50%);
-  filter: drop-shadow(0 20px 42px rgba(37, 32, 95, 0.18));
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.12) 14%, black 42%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.12) 14%, black 42%);
+  position: relative;
+  flex: 0 1 220px;
+  width: min(44%, 220px);
+  transform: translateY(44px);
 }
 
 .phone-frame.birthday-phone-secondary {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  top: auto;
+  position: relative;
   width: 100%;
-  opacity: 0.96;
 }
 
 @media (min-width: 1081px) {
@@ -996,10 +937,6 @@ p {
     position: relative;
     left: 56px;
     max-width: 500px;
-  }
-
-  .birthday-lock-visual {
-    right: -124px;
   }
 }
 
@@ -1028,6 +965,12 @@ p {
   z-index: 1;
   width: 220px;
   transform: rotate(-4deg);
+  transition: left 420ms cubic-bezier(0.22, 1, 0.36, 1), transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.calculator-dual-media.is-age-mode .calculator-photo-phone {
+  left: calc(100% - 300px);
+  transform: rotate(0deg);
 }
 
 .phone-frame.calculator-result-phone {
@@ -1044,12 +987,13 @@ p {
 .calculator-mode-card {
   position: relative;
   padding: 20px;
-  transition: transform 300ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: transform 220ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
 }
 
 .calculator-mode-card.is-selected {
-  border-color: color-mix(in srgb, var(--accent-app) 36%, var(--border));
-  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--accent-app) 54%, var(--border));
+  background: color-mix(in srgb, var(--accent-soft) 28%, var(--surface));
+  box-shadow: 0 15px 34px rgba(54, 87, 214, 0.12);
 }
 
 /*
@@ -1057,12 +1001,25 @@ p {
  * select the card, so it is gated on the .js class like other JS-only states.
  */
 .js .calculator-mode-card:not(.is-selected) {
-  transform: scale(0.965);
+  border-color: color-mix(in srgb, var(--border) 78%, transparent);
+  color: color-mix(in srgb, var(--text) 76%, var(--muted));
+  background: color-mix(in srgb, var(--surface-muted) 66%, var(--surface));
+  box-shadow: none;
+}
+
+.js .calculator-mode-card:not(.is-selected) p,
+.js .calculator-mode-card:not(.is-selected) .step-list li {
+  color: var(--muted);
+}
+
+.js .calculator-mode-card:not(.is-selected) .step-list li::before {
+  color: var(--muted);
+  background: color-mix(in srgb, var(--border-strong) 42%, var(--surface));
 }
 
 .js .calculator-mode-card:not(.is-selected):hover {
-  transform: scale(0.98);
-  border-color: color-mix(in srgb, var(--accent-app) 24%, var(--border));
+  border-color: color-mix(in srgb, var(--accent-app) 30%, var(--border));
+  transform: translateY(-1px);
 }
 
 .calculator-mode-kicker {
@@ -1122,13 +1079,13 @@ p {
   z-index: 1;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 550ms ease, visibility 0s linear 550ms;
+  transition: opacity 360ms ease, visibility 0s linear 360ms;
 }
 
 .calculator-demo-layer.is-active {
   opacity: 1;
   visibility: visible;
-  transition: opacity 550ms ease, visibility 0s;
+  transition: opacity 360ms ease, visibility 0s;
 }
 
 .feature-grid-section {
@@ -1501,7 +1458,7 @@ p {
 }
 
 .final-cta {
-  padding: 84px 0;
+  padding: 58px 0 82px;
   text-align: center;
 }
 
@@ -1512,7 +1469,7 @@ p {
 .final-cta-inner {
   position: relative;
   max-width: 720px;
-  padding: 48px 44px;
+  padding: 42px 44px;
   border: 1px solid color-mix(in srgb, var(--accent-app) 14%, var(--border));
   border-radius: 34px;
   background: rgba(255, 255, 255, 0.82);
@@ -1524,8 +1481,23 @@ p {
   box-shadow: var(--shadow-md);
 }
 
+.final-cta h2 {
+  max-width: 610px;
+  margin: 24px auto 0;
+}
+
 .final-cta .hero-actions {
+  width: auto;
   justify-content: center;
+  margin-top: 24px;
+}
+
+.final-cta .availability-badge.final-availability {
+  width: auto;
+  min-height: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
 }
 
 .page-hero {
@@ -1739,7 +1711,8 @@ li {
   text-decoration: none;
 }
 
-.footer-links a:hover {
+.footer-links a:hover,
+.footer-links a[aria-current="page"] {
   color: var(--text);
 }
 
@@ -2014,8 +1987,14 @@ li {
 
 /* The dark surface list above outranks .is-selected, so restate its accent. */
 :root[data-resolved-theme="dark"] .calculator-mode-card.is-selected {
-  border-color: color-mix(in srgb, var(--accent-app) 36%, var(--border));
-  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--accent-app) 54%, var(--border));
+  background: color-mix(in srgb, var(--accent-soft) 34%, var(--surface));
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-resolved-theme="dark"] .js .calculator-mode-card:not(.is-selected) {
+  border-color: color-mix(in srgb, var(--border) 74%, transparent);
+  background: color-mix(in srgb, var(--surface-muted) 58%, var(--surface));
 }
 
 :root[data-resolved-theme="dark"] .feature-section-muted {
@@ -2191,8 +2170,14 @@ li {
 
   /* The dark surface list above outranks .is-selected, so restate its accent. */
   :root:not([data-theme]) .calculator-mode-card.is-selected {
-    border-color: color-mix(in srgb, var(--accent-app) 36%, var(--border));
-    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--accent-app) 54%, var(--border));
+    background: color-mix(in srgb, var(--accent-soft) 34%, var(--surface));
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3);
+  }
+
+  :root:not([data-theme]) .js .calculator-mode-card:not(.is-selected) {
+    border-color: color-mix(in srgb, var(--border) 74%, transparent);
+    background: color-mix(in srgb, var(--surface-muted) 58%, var(--surface));
   }
 
   :root:not([data-theme]) .feature-section-muted {
@@ -2322,12 +2307,6 @@ li {
   }
 }
 
-@media (min-width: 761px) {
-  .compact-menu {
-    display: none !important;
-  }
-}
-
 @media (max-width: 1080px) {
   .header-availability {
     width: 106px;
@@ -2343,15 +2322,6 @@ li {
 }
 
 @media (max-width: 760px) {
-  .desktop-nav,
-  .desktop-theme-control {
-    display: none;
-  }
-
-  .compact-menu-toggle {
-    display: inline-grid;
-  }
-
   .nav-actions {
     gap: 9px;
   }
@@ -2482,30 +2452,22 @@ li {
   }
 
   .birthday-media {
-    display: grid;
+    flex-direction: column;
     min-height: 0;
     justify-content: center;
-    justify-items: center;
-    gap: 22px;
-    padding-left: 0;
+    align-items: center;
+    gap: 24px;
   }
 
   .birthday-phone-primary {
-    width: min(294px, calc(100vw - 48px));
+    flex: none;
+    width: min(270px, calc(100vw - 48px));
   }
 
   .birthday-lock-visual {
-    position: relative;
-    right: auto;
-    top: auto;
-    width: min(294px, calc(100vw - 48px));
-    height: 350px;
+    flex: none;
+    width: min(230px, calc(100vw - 64px));
     transform: none;
-  }
-
-  .phone-frame.birthday-phone-secondary {
-    bottom: 0;
-    top: auto;
   }
 
   .calculator-dual-media {
@@ -2587,6 +2549,10 @@ li {
     padding: 62px 0;
   }
 
+  .final-cta {
+    padding-bottom: 68px;
+  }
+
   .footer-inner {
     align-items: flex-start;
     flex-direction: column;
@@ -2620,6 +2586,11 @@ li {
   .phone-frame.calculator-photo-phone {
     left: 0;
     width: 165px;
+  }
+
+  .calculator-dual-media.is-age-mode .calculator-photo-phone {
+    /* The result phone shrinks to the remaining flex width on narrow screens. */
+    left: max(76px, calc(100% - 235px));
   }
 
   .phone-frame.calculator-result-phone {

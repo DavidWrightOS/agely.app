@@ -58,6 +58,42 @@ To review from an iPhone (or any other personal device) without making the dev s
 - Treat privacy and support copy as product/legal content. Do not casually change promises about data collection, analytics, iCloud, or contact addresses; ensure related statements remain consistent across pages.
 - Keep canonical URLs, Open Graph/Twitter metadata, navigation links, and `aria-current` values accurate when page titles or routes change.
 
+## Copy guidance
+
+Consult this section whenever adding, changing, or reviewing user-facing wording, including page metadata and accessibility text.
+
+### Voice and useful detail
+
+- Write for someone discovering Agely for the first time, including someone who has not added a contact. Use plain, polished, friendly language with the clarity of traditional Apple apps.
+- Explain concrete benefits and useful next steps. Keep marketing claims factual; keep navigation, controls, instructions, and policy text direct. Avoid developer jargon, forced casualness, vague hype, and overly clever labels.
+- Prefer useful brevity over the shortest sentence. Explain a meaningful effect or consequence; omit obvious implications, repeated instructions, and details already visible in the next step.
+- Describe what a control changes and where the effect appears. Refer to a visible control by its exact label. Explain both switch states only when that distinction helps.
+- Review related wording together: headings and descriptions, labels and destinations, and any title/message/action combination. Use consistent patterns while allowing different contexts to need different words.
+
+### Shared terminology
+
+- Use **Agely**, **Ages**, **Upcoming**, **Calculator**, and **Settings** when naming the app and its tabs.
+- Use **Touch and Hold** for the gesture label and *touch and hold* in instructions, rather than *long press*.
+- Use **Default Tab** for the launch preference and **Group Filters** for the filter-settings destination. Use *group filter bar* in prose about the list control.
+- Distinguish **Birthday Reminders** (notifications) from **Birthday Celebrations** (the in-app experience). Describe the latter as a **celebratory message**, rather than a birthday card or alert.
+- Preserve context: **Add Contact** names an action, while **New Contact** can title an editor; **Manage Groups** names an entry action, while **Groups** can title its destination.
+- Use **Apple Account**, **Contacts app**, **Settings app**, and **Third-Party Notices** when those concepts appear. Match app control labels exactly when explaining them.
+- Keep **Feedback / Send Feedback** purpose-focused: bugs, confusing experiences, and ideas for improvement. Avoid promises of replies or reading every message, general-support categories, and unnecessary instructions or no-reply disclaimers. Privacy questions and requests remain distinct.
+
+### Truthful claims and presentation
+
+- Verify claims about saving, deletion, sync, permissions, data collection, and external actions against current behavior and policy. Opening an email app is a handoff, not confirmation that an email was sent or delivered. Do not imply rollback or completion without evidence.
+- Keep stored app content, analytics/diagnostics, and voluntarily supplied feedback distinct. Confirm claimed legal or platform wording requirements with current primary sources; distinguish them from editorial recommendations. Preserve required disclosures and license bodies.
+- For app-owned failure titles, Agely uses **Couldn’t…**. Use **Please try again.** only where retry helps; provide specific recovery for unavailable files, permissions, or destinations. Review the full title, message, and actions together without raw platform errors.
+- Keep capitalization and punctuation consistent by component: title-style short control labels and app names; sentence-style explanatory prose with normal ending punctuation. Preserve exact visible labels in prose and established web-heading styles.
+- Keep accessible names aligned with visible labels, make link destinations clear, and avoid redundant announcements. Check dynamic counts and dates, long names, wrapping, and truncation where relevant.
+
+### Website review
+
+- Check affected headings, calls to action, navigation, footer links, page titles, descriptions, Open Graph/Twitter metadata, image alternatives, and ARIA labels together. A visible rename does not by itself require a route change.
+- Preserve the separate Feedback and privacy purposes across navigation, the contact page, and the policy. Do not silently add privacy promises or remove necessary disclosures to shorten a page.
+- Follow the validation checklist below for user-facing changes, including narrow mobile widths and light/dark appearances. Record exact decisions and useful rationale in the change description; do not publish private app documentation or internal coordination history here.
+
 ## Assets and cache keys
 
 - Use root-relative paths for published site resources and internal routes.
