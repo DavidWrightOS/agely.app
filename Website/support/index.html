@@ -22,9 +22,10 @@
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
     <script src="/assets/theme-init.js?v=20260706g"></script>
-    <link rel="stylesheet" href="/assets/styles.css?v=20260731a">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261105a">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="site-header">
       <div class="site-shell nav">
         <a class="brand" href="/" aria-label="Agely home">
@@ -37,12 +38,7 @@
             <span class="availability-label-full">Coming soon to the App Store</span>
             <span class="availability-label-compact">Coming soon</span>
           </span>
-          <nav class="nav-links desktop-nav" aria-label="Primary">
-            <a href="/#features">Features</a>
-            <a href="/privacy/">Privacy</a>
-            <a href="/support/" aria-current="page">Feedback</a>
-          </nav>
-          <div class="theme-menu-wrap desktop-theme-control" data-theme-menu>
+          <div class="theme-menu-wrap" data-theme-menu>
             <button class="theme-menu-button" type="button" aria-label="Appearance" aria-haspopup="menu" aria-expanded="false" aria-controls="appearance-menu" data-theme-menu-button>
               <span class="theme-current-icon" aria-hidden="true">
                 <svg class="theme-icon theme-mode-icon theme-mode-system" viewBox="0 0 24 24">
@@ -106,31 +102,11 @@
               </button>
             </div>
           </div>
-          <button class="compact-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu" data-site-menu-toggle>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-          </button>
-        </div>
-      </div>
-      <div class="site-shell compact-menu" id="site-menu" data-site-menu hidden>
-        <nav class="compact-nav-links" aria-label="Primary">
-          <a href="/#features">Features</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="/support/" aria-current="page">Feedback</a>
-        </nav>
-        <div class="compact-appearance">
-          <span class="compact-appearance-label">Appearance</span>
-          <div class="theme-segmented-control" role="group" aria-label="Appearance">
-            <button type="button" aria-pressed="true" data-theme-option="system">System</button>
-            <button type="button" aria-pressed="false" data-theme-option="light">Light</button>
-            <button type="button" aria-pressed="false" data-theme-option="dark">Dark</button>
-          </div>
         </div>
       </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="page-hero section-bleed">
         <div class="site-shell">
           <div class="animate-on-scroll fade-up">
@@ -170,7 +146,7 @@
         <div class="footer-links">
           <a href="/#features">Features</a>
           <a href="/privacy/">Privacy</a>
-          <a href="/support/">Feedback</a>
+          <a href="/support/" aria-current="page">Feedback</a>
         </div>
         <div class="footer-appearance" aria-label="Appearance">
           <div class="theme-segmented-control theme-segmented-footer" role="group" aria-label="Appearance">
@@ -181,6 +157,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260731a" defer></script>
+    <script src="/assets/animations.js?v=20261105a" defer></script>
   </body>
 </html>

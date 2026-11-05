@@ -20,6 +20,14 @@
     }
   }
 
+  function focusWithoutScrolling(element) {
+    try {
+      element.focus({ preventScroll: true });
+    } catch (_) {
+      element.focus();
+    }
+  }
+
   function normalizedTheme(value) {
     return allowedThemes[value] ? value : "system";
   }
@@ -107,16 +115,24 @@
   }
 
   function bindThemeMenus() {
+    function menuItems(popover) {
+      return Array.prototype.slice.call(popover.querySelectorAll('[role="menuitemradio"]'));
+    }
+
+    function closeThemeMenu(menu, restoreFocus) {
+      var button = menu.querySelector("[data-theme-menu-button]");
+      var popover = menu.querySelector("[data-theme-popover]");
+      if (!button || !popover) { return; }
+
+      button.setAttribute("aria-expanded", "false");
+      popover.hidden = true;
+      if (restoreFocus) { focusWithoutScrolling(button); }
+    }
+
     function closeThemeMenus(exceptMenu) {
       document.querySelectorAll("[data-theme-menu]").forEach(function (menu) {
         if (menu === exceptMenu) { return; }
-
-        var button = menu.querySelector("[data-theme-menu-button]");
-        var popover = menu.querySelector("[data-theme-popover]");
-        if (!button || !popover) { return; }
-
-        button.setAttribute("aria-expanded", "false");
-        popover.hidden = true;
+        closeThemeMenu(menu, false);
       });
     }
 
@@ -131,6 +147,57 @@
         closeThemeMenus(menu);
         popover.hidden = !shouldOpen;
         button.setAttribute("aria-expanded", String(shouldOpen));
+
+        if (shouldOpen) {
+          var items = menuItems(popover);
+          var selectedItem = popover.querySelector('[aria-checked="true"]');
+          window.requestAnimationFrame(function () {
+            if (selectedItem) {
+              focusWithoutScrolling(selectedItem);
+            } else if (items.length) {
+              focusWithoutScrolling(items[0]);
+            }
+          });
+        }
+      });
+
+      popover.addEventListener("keydown", function (event) {
+        var items = menuItems(popover);
+        var currentIndex = items.indexOf(document.activeElement);
+        var nextIndex;
+
+        if (event.key === "Escape") {
+          event.preventDefault();
+          event.stopPropagation();
+          closeThemeMenu(menu, true);
+          return;
+        }
+
+        if ((event.key === "Enter" || event.key === " ") && currentIndex >= 0) {
+          event.preventDefault();
+          items[currentIndex].click();
+          return;
+        }
+
+        if (event.key === "Tab") {
+          window.setTimeout(function () { closeThemeMenu(menu, false); }, 0);
+          return;
+        }
+
+        if (event.key === "ArrowDown") {
+          nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % items.length;
+        } else if (event.key === "ArrowUp") {
+          nextIndex = currentIndex < 0 ? items.length - 1 : (currentIndex - 1 + items.length) % items.length;
+        } else if (event.key === "Home") {
+          nextIndex = 0;
+        } else if (event.key === "End") {
+          nextIndex = items.length - 1;
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        if (items[nextIndex]) { focusWithoutScrolling(items[nextIndex]); }
       });
     });
 
@@ -141,38 +208,12 @@
 
     document.addEventListener("keydown", function (event) {
       if (event.key !== "Escape") { return; }
-      closeThemeMenus();
-    });
-  }
+      var openMenu = document.querySelector('[data-theme-menu-button][aria-expanded="true"]');
+      if (!openMenu) { return; }
 
-  function bindCompactMenu() {
-    var button = document.querySelector("[data-site-menu-toggle]");
-    if (!button) { return; }
-
-    var menu = document.getElementById(button.getAttribute("aria-controls"));
-    if (!menu) { return; }
-
-    function closeMenu() {
-      menu.hidden = true;
-      button.setAttribute("aria-expanded", "false");
-    }
-
-    button.addEventListener("click", function (event) {
-      event.stopPropagation();
-      var shouldOpen = menu.hidden;
-      menu.hidden = !shouldOpen;
-      button.setAttribute("aria-expanded", String(shouldOpen));
-    });
-
-    document.addEventListener("click", function (event) {
-      if (menu.hidden) { return; }
-      if (event.target.closest("[data-site-menu]") || event.target.closest("[data-site-menu-toggle]")) { return; }
-      closeMenu();
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key !== "Escape") { return; }
-      closeMenu();
+      event.preventDefault();
+      var menu = openMenu.closest("[data-theme-menu]");
+      if (menu) { closeThemeMenu(menu, true); }
     });
   }
 
@@ -188,6 +229,7 @@
           if (button && popover) {
             button.setAttribute("aria-expanded", "false");
             popover.hidden = true;
+            focusWithoutScrolling(button);
           }
         }
       });
@@ -197,7 +239,6 @@
   function bindAppearanceControls() {
     applyTheme(currentTheme(), { dispatch: false });
     bindThemeMenus();
-    bindCompactMenu();
     bindThemeOptions();
 
     function handleSystemThemeChange() {
@@ -234,10 +275,13 @@
     document.querySelectorAll("video[data-controlled-loop]").forEach(function (video) {
       var loopStartSeconds = parseFloat(video.dataset.loopStart || "0") || 0;
       var loopEndSeconds = parseFloat(video.dataset.loopEnd || "") || Infinity;
-      var hasStarted = false;
       var lastPlayheadTime = -1;
       var stalledTicks = 0;
       var isDeactivated = video.hasAttribute("data-loop-inactive");
+      var isHydrated = false;
+      var isNearViewport = false;
+      var isInPlaybackRange = false;
+      var restartWhenReady = false;
 
       video.loop = true;
       video.autoplay = false;
@@ -252,16 +296,12 @@
         return lightValue || darkValue || "";
       }
 
-      function applyPreferredVideoAsset() {
-        var source = video.querySelector("source");
-        var preferredSource = preferredAsset(video.dataset.lightSrc, video.dataset.darkSrc);
-        var preferredPoster = preferredAsset(video.dataset.lightPoster, video.dataset.darkPoster);
+      function preferredVideoSource() {
+        return preferredAsset(video.dataset.lightSrc, video.dataset.darkSrc);
+      }
 
-        if (source && preferredSource && source.getAttribute("src") !== preferredSource) {
-          source.setAttribute("src", preferredSource);
-        } else if (!source && preferredSource && video.getAttribute("src") !== preferredSource) {
-          video.setAttribute("src", preferredSource);
-        }
+      function applyPreferredPoster() {
+        var preferredPoster = preferredAsset(video.dataset.lightPoster, video.dataset.darkPoster);
 
         if (preferredPoster && video.getAttribute("poster") !== preferredPoster) {
           video.setAttribute("poster", preferredPoster);
@@ -275,24 +315,42 @@
       function seekToLoopStart(forceSeek) {
         if (!forceSeek && loopStartSeconds <= 0) { return; }
 
-        function seek() {
-          try {
-            video.currentTime = loopStartSeconds;
-          } catch (_) {
-            // Seeking can throw while the element has no usable data; the
-            // timeupdate handler below snaps playback into the window instead.
-          }
+        if (video.readyState < 1) {
+          restartWhenReady = true;
+          return;
         }
 
-        if (video.readyState >= 1) {
-          seek();
-        } else {
-          video.addEventListener("loadedmetadata", seek, { once: true });
+        restartWhenReady = false;
+        try {
+          video.currentTime = loopStartSeconds;
+        } catch (_) {
+          restartWhenReady = true;
+        }
+      }
+
+      function hydratePreferredVideoAsset(forceReload) {
+        var source = video.querySelector("source");
+        var preferredSource = preferredVideoSource();
+        var currentSource = source ? source.getAttribute("src") : video.getAttribute("src");
+        var sourceChanged = currentSource !== preferredSource;
+
+        if (!preferredSource || reduceMotionQuery.matches || isDeactivated) { return; }
+        if (source && sourceChanged) {
+          source.setAttribute("src", preferredSource);
+        } else if (!source && sourceChanged) {
+          video.setAttribute("src", preferredSource);
+        }
+
+        if (!isHydrated || sourceChanged || forceReload) {
+          isHydrated = true;
+          setVisible(false);
+          video.load();
+          seekToLoopStart(restartWhenReady);
         }
       }
 
       function tryPlay() {
-        if (isDeactivated || !hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
+        if (isDeactivated || !isHydrated || !isInPlaybackRange || document.hidden || reduceMotionQuery.matches) { return; }
 
         var playPromise = video.play();
         if (playPromise && typeof playPromise.catch === "function") {
@@ -311,12 +369,30 @@
           return;
         }
 
+        if (isNearViewport && !isDeactivated) {
+          hydratePreferredVideoAsset(false);
+        }
         tryPlay();
       }
 
       // Fade the video in only while frames are actually advancing. Every
       // stopped state reveals the still-frame fallback underneath.
-      video.addEventListener("playing", function () { setVisible(true); });
+      video.addEventListener("loadedmetadata", function () {
+        if (restartWhenReady) { seekToLoopStart(true); }
+        tryPlay();
+      });
+
+      video.addEventListener("canplay", tryPlay);
+
+      video.addEventListener("playing", function () {
+        if (isDeactivated || !isInPlaybackRange || document.hidden || reduceMotionQuery.matches) {
+          video.pause();
+          setVisible(false);
+          return;
+        }
+
+        setVisible(true);
+      });
       ["pause", "waiting", "stalled", "error", "emptied"].forEach(function (eventName) {
         video.addEventListener(eventName, function () { setVisible(false); });
       });
@@ -331,12 +407,17 @@
 
       window.addEventListener("agelythemechange", function () {
         // The fallback <picture> swaps via its data-theme-dark-source rule;
-        // the video needs an explicit reload onto the matching asset.
+        // a hydrated video reloads only when it is close enough to be useful.
         setVisible(false);
-        applyPreferredVideoAsset();
-        video.load();
-        seekToLoopStart();
-        tryPlay();
+        applyPreferredPoster();
+        video.pause();
+        isHydrated = false;
+
+        if (isNearViewport && !isDeactivated && !reduceMotionQuery.matches) {
+          hydratePreferredVideoAsset(true);
+          seekToLoopStart(true);
+          tryPlay();
+        }
       });
 
       // Videos stacked behind another demo in the same phone frame are marked
@@ -346,9 +427,11 @@
       video.addEventListener("agelyloopactivate", function () {
         isDeactivated = false;
         video.removeAttribute("data-loop-inactive");
-        // A deliberate selection outranks waiting for scroll visibility.
-        hasStarted = true;
         // Restart from the top: a demo resumed mid-workflow reads as broken.
+        restartWhenReady = true;
+        if (isNearViewport || isInPlaybackRange) {
+          hydratePreferredVideoAsset(false);
+        }
         seekToLoopStart(true);
         tryPlay();
       });
@@ -357,10 +440,16 @@
         isDeactivated = true;
         video.setAttribute("data-loop-inactive", "");
         video.pause();
+        setVisible(false);
       });
 
       document.addEventListener("visibilitychange", function () {
-        if (!document.hidden) { tryPlay(); }
+        if (document.hidden) {
+          video.pause();
+          setVisible(false);
+        } else {
+          tryPlay();
+        }
       });
 
       if (reduceMotionQuery.addEventListener) {
@@ -372,7 +461,7 @@
       // Watchdog: if the playhead stops advancing while the loop should be
       // running, nudge play(); after repeated stalled checks, reload the file.
       window.setInterval(function () {
-        if (isDeactivated || !hasStarted || document.hidden || reduceMotionQuery.matches) { return; }
+        if (isDeactivated || !isHydrated || !isInPlaybackRange || document.hidden || reduceMotionQuery.matches) { return; }
 
         var isAdvancing = !video.paused && video.currentTime !== lastPlayheadTime;
         lastPlayheadTime = video.currentTime;
@@ -391,37 +480,51 @@
           video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA;
         if (stalledTicks >= (isStillDownloading ? 8 : 3)) {
           stalledTicks = 0;
-          applyPreferredVideoAsset();
-          video.load();
+          hydratePreferredVideoAsset(true);
           seekToLoopStart();
         }
         tryPlay();
       }, 4000);
 
-      applyPreferredVideoAsset();
-      video.load();
-      seekToLoopStart();
-
-      function beginWhenVisible() {
-        if (hasStarted) { return; }
-        hasStarted = true;
-        tryPlay();
-      }
+      applyPreferredPoster();
 
       if ("IntersectionObserver" in window) {
-        var videoObserver = new IntersectionObserver(function (entries) {
+        var hydrationObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
-            if (!entry.isIntersecting) { return; }
-            beginWhenVisible();
-            videoObserver.unobserve(video);
+            isNearViewport = entry.isIntersecting;
+            if (isNearViewport && !isDeactivated) {
+              hydratePreferredVideoAsset(false);
+            }
           });
         }, {
-          threshold: 0.35
+          rootMargin: "320px 0px",
+          threshold: 0.01
         });
 
-        videoObserver.observe(video);
+        var playbackObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            isInPlaybackRange = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+
+            if (isInPlaybackRange) {
+              isNearViewport = true;
+              hydratePreferredVideoAsset(false);
+              tryPlay();
+            } else {
+              video.pause();
+              setVisible(false);
+            }
+          });
+        }, {
+          threshold: [0, 0.35]
+        });
+
+        hydrationObserver.observe(video);
+        playbackObserver.observe(video);
       } else {
-        beginWhenVisible();
+        isNearViewport = true;
+        isInPlaybackRange = true;
+        hydratePreferredVideoAsset(false);
+        tryPlay();
       }
     });
   }
@@ -438,6 +541,7 @@
 
     var buttons = Array.prototype.slice.call(section.querySelectorAll("[data-calculator-mode]"));
     var layers = Array.prototype.slice.call(section.querySelectorAll("[data-calculator-demo]"));
+    var media = section.querySelector("[data-calculator-media]");
     if (!buttons.length || !layers.length) { return; }
 
     buttons.forEach(function (button) {
@@ -453,13 +557,31 @@
         if (card) { card.classList.toggle("is-selected", isSelected); }
       });
 
+      if (media) {
+        media.classList.toggle("is-age-mode", mode === "age");
+      }
+
+      // Stop the outgoing recording before revealing and restarting the
+      // incoming one, so two hidden demos never compete for playback.
       layers.forEach(function (layer) {
         var isActive = layer.dataset.calculatorDemo === mode;
-        layer.classList.toggle("is-active", isActive);
+        if (isActive) { return; }
 
+        layer.classList.remove("is-active");
         var video = layer.querySelector("video[data-controlled-loop]");
         if (video) {
-          video.dispatchEvent(new CustomEvent(isActive ? "agelyloopactivate" : "agelyloopdeactivate"));
+          video.dispatchEvent(new CustomEvent("agelyloopdeactivate"));
+        }
+      });
+
+      layers.forEach(function (layer) {
+        var isActive = layer.dataset.calculatorDemo === mode;
+        if (!isActive) { return; }
+
+        layer.classList.add("is-active");
+        var video = layer.querySelector("video[data-controlled-loop]");
+        if (video) {
+          video.dispatchEvent(new CustomEvent("agelyloopactivate"));
         }
       });
     }
@@ -483,6 +605,8 @@
     }
     if (!target) { return false; }
     target.scrollIntoView({ block: "start", behavior: reduceMotionQuery.matches ? "auto" : "smooth" });
+    // A skip link must move keyboard focus as well as the viewport.
+    if (target.id === "main-content") { focusWithoutScrolling(target); }
     return true;
   }
 

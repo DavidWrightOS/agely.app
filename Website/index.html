@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agely | Age and Birthday Tracking</title>
-    <meta name="description" content="Agely tracks ages, birthdays, and date-based age calculations for the people you care about. Coming soon to the App Store.">
+    <title>Agely | Age &amp; Birthday Tracker for iPhone</title>
+    <meta name="description" content="Agely keeps exact ages and birthdays up to date and converts dates to ages—or ages to dates—for the people you care about. Coming soon for iPhone.">
     <link rel="canonical" href="https://agely.app/">
-    <meta property="og:title" content="Agely | Age and Birthday Tracking">
-    <meta property="og:description" content="Agely tracks ages, birthdays, and date-based age calculations for the people you care about. Coming soon to the App Store.">
+    <meta property="og:title" content="Agely | Age &amp; Birthday Tracker for iPhone">
+    <meta property="og:description" content="Agely keeps exact ages and birthdays up to date and converts dates to ages—or ages to dates—for the people you care about. Coming soon for iPhone.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://agely.app/">
     <meta property="og:site_name" content="Agely">
@@ -16,15 +16,16 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Agely app preview showing age and birthday tracking on iPhone.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Agely | Age and Birthday Tracking">
-    <meta name="twitter:description" content="Agely tracks ages, birthdays, and date-based age calculations for the people you care about. Coming soon to the App Store.">
+    <meta name="twitter:title" content="Agely | Age &amp; Birthday Tracker for iPhone">
+    <meta name="twitter:description" content="Agely keeps exact ages and birthdays up to date and converts dates to ages—or ages to dates—for the people you care about. Coming soon for iPhone.">
     <meta name="twitter:image" content="https://agely.app/assets/social-preview.png?v=20260731a">
     <link rel="icon" href="/assets/agely-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/agely-icon.png">
     <script src="/assets/theme-init.js?v=20260706g"></script>
-    <link rel="stylesheet" href="/assets/styles.css?v=20260731a">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261105a">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="site-header site-header-contextual" data-contextual-availability>
       <div class="site-shell nav">
         <a class="brand" href="/" aria-label="Agely home">
@@ -37,12 +38,7 @@
             <span class="availability-label-full">Coming soon to the App Store</span>
             <span class="availability-label-compact">Coming soon</span>
           </span>
-          <nav class="nav-links desktop-nav" aria-label="Primary">
-            <a href="/#features">Features</a>
-            <a href="/privacy/">Privacy</a>
-            <a href="/support/">Feedback</a>
-          </nav>
-          <div class="theme-menu-wrap desktop-theme-control" data-theme-menu>
+          <div class="theme-menu-wrap" data-theme-menu>
             <button class="theme-menu-button" type="button" aria-label="Appearance" aria-haspopup="menu" aria-expanded="false" aria-controls="appearance-menu" data-theme-menu-button>
               <span class="theme-current-icon" aria-hidden="true">
                 <svg class="theme-icon theme-mode-icon theme-mode-system" viewBox="0 0 24 24">
@@ -106,37 +102,17 @@
               </button>
             </div>
           </div>
-          <button class="compact-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu" data-site-menu-toggle>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-            <span class="menu-icon-line" aria-hidden="true"></span>
-          </button>
-        </div>
-      </div>
-      <div class="site-shell compact-menu" id="site-menu" data-site-menu hidden>
-        <nav class="compact-nav-links" aria-label="Primary">
-          <a href="/#features">Features</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="/support/">Feedback</a>
-        </nav>
-        <div class="compact-appearance">
-          <span class="compact-appearance-label">Appearance</span>
-          <div class="theme-segmented-control" role="group" aria-label="Appearance">
-            <button type="button" aria-pressed="true" data-theme-option="system">System</button>
-            <button type="button" aria-pressed="false" data-theme-option="light">Light</button>
-            <button type="button" aria-pressed="false" data-theme-option="dark">Dark</button>
-          </div>
         </div>
       </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="hero section-bleed">
         <div class="site-shell hero-grid">
           <div class="hero-copy animate-on-scroll fade-up">
-            <p class="eyebrow">Age and birthday tracking</p>
+            <p class="eyebrow">Age and birthday tracking for iPhone</p>
             <h1>The ages that matter, always up to date.</h1>
-            <p class="lede">Agely tracks ages, birthdays, and date-based age calculations for the people you care about.</p>
+            <p class="lede">See up to date ages, stay ahead of upcoming birthdays, and calculate ages on a given date—or dates given an age—for the people you care about.</p>
             <div class="hero-actions" aria-label="Availability" data-availability-sentinel>
               <!-- APP_STORE_URL -->
               <span class="availability-badge" aria-label="Agely is coming soon to the App Store">
@@ -203,8 +179,11 @@
           </a>
           <a class="value-card animate-on-scroll fade-up stagger-2" href="#calculator">
             <span class="value-kicker">Calculate</span>
-            <strong>Ages on any date</strong>
-            <p>See how old everyone was—or will be—on any date.</p>
+            <strong>
+              <span aria-hidden="true">Ages ⇄ Dates</span>
+              <span class="visually-hidden">Ages to and from dates</span>
+            </strong>
+            <p>Calculate ages on a given date—or dates given an age.</p>
           </a>
         </div>
       </section>
@@ -214,10 +193,10 @@
           <div class="section-copy animate-on-scroll fade-right">
             <p class="eyebrow">Ages</p>
             <h2>Know exactly how old everyone is.</h2>
-            <p>Open Agely to see everyone’s current age. No counting from birth years. No guessing.</p>
+            <p>See everyone’s current age—always up to date.</p>
             <ul class="check-list">
-              <li>See ages down to the year, month, and day.</li>
-              <li>Pin anyone to see how much older or younger everyone else is.</li>
+              <li>Years, months, and days</li>
+              <li>Pin anyone to compare ages</li>
             </ul>
           </div>
           <div class="feature-visual animate-on-scroll fade-left stagger-1">
@@ -243,11 +222,11 @@
                 data-dark-poster="/assets/app-ages-poster-dark.png?v=20260731a"
                 muted
                 playsinline
-                preload="auto"
+                preload="none"
                 poster="/assets/app-ages-poster.png?v=20260731a"
                 aria-label="Screen recording of Agely pinning a contact to compare everyone’s ages, then returning to the current-age list."
               >
-                <source src="/assets/app-ages.mp4?v=20260731a" type="video/mp4">
+                <source type="video/mp4">
               </video>
               <img
                 class="phone-bezel"
@@ -269,7 +248,7 @@
           <div class="section-copy animate-on-scroll fade-left">
             <p class="eyebrow">Birthday planning</p>
             <h2>Always know whose birthday is next.</h2>
-            <p>See upcoming birthdays month by month, then choose when reminders arrive so you have time to call, plan, or pick out a gift.</p>
+            <p>See upcoming birthdays month by month, then choose when reminders arrive—so there’s time to call, plan, or find the right gift.</p>
           </div>
           <div class="feature-visual birthday-media animate-on-scroll fade-right stagger-1">
             <div class="phone-frame phone-frame-media birthday-phone-primary">
@@ -321,15 +300,15 @@
         <div class="site-shell split-section calculator-section-layout">
           <div class="section-copy animate-on-scroll fade-right">
             <p class="eyebrow">Calculator</p>
-            <h2>Start with a date. Or with an age.</h2>
+            <h2>Start with a date—or an age.</h2>
             <div class="calculator-mode-cards" role="group" aria-label="Calculator demos">
               <article class="calculator-mode-card is-selected">
                 <p class="calculator-mode-kicker">
                   <button class="calculator-mode-toggle" type="button" aria-pressed="true" aria-controls="calculator-demo" data-calculator-mode="date" hidden>Input date</button>
                 </p>
                 <h3>How old was everyone in that photo?</h3>
-                <p>Enter any past date and see everyone’s exact age on that day.</p>
-                <ol class="step-list">
+                <p>Enter any date to see exactly how old each person was—or will be—on that day.</p>
+                <ol class="step-list" role="list">
                   <li><span>Check the date in Photos.</span></li>
                   <li><span>Enter it in Agely.</span></li>
                   <li><span>Choose Cousins to see all five ages.</span></li>
@@ -339,17 +318,17 @@
                 <p class="calculator-mode-kicker">
                   <button class="calculator-mode-toggle" type="button" aria-pressed="false" aria-controls="calculator-demo" data-calculator-mode="age" hidden>Input age</button>
                 </p>
-                <h3>When was your daughter exactly that age?</h3>
-                <p>Friends visit with their 1½-year-old. Enter an age and see the exact date each person was—or will be—that old.</p>
-                <ol class="step-list">
-                  <li><span>Enter 1 year, 6 months in Agely.</span></li>
-                  <li><span>Choose Cousins to see each date.</span></li>
-                  <li><span>Pull up her photos from that day.</span></li>
+                <h3>What did everyone look like at the same age?</h3>
+                <p>Enter an age to find the exact date each person reached—or will reach—that age.</p>
+                <ol class="step-list" role="list">
+                  <li><span>Enter 1 year, 6 months.</span></li>
+                  <li><span>Choose Cousins.</span></li>
+                  <li><span>Pull up photos from each date.</span></li>
                 </ol>
               </article>
             </div>
           </div>
-          <div class="calculator-dual-media calculator-final-media animate-on-scroll fade-left stagger-1">
+          <div class="calculator-dual-media calculator-final-media animate-on-scroll fade-left stagger-1" data-calculator-media>
             <div class="phone-frame phone-frame-media calculator-photo-phone">
               <picture class="app-shot-picture">
                 <source srcset="/assets/cousins-photos-dark.png?v=20260713b" media="(prefers-color-scheme: dark)" data-theme-dark-source>
@@ -380,11 +359,11 @@
                   data-dark-poster="/assets/calculator-workflow-poster-dark.png?v=20260731a"
                   muted
                   playsinline
-                  preload="auto"
+                  preload="none"
                   poster="/assets/calculator-workflow-poster.png?v=20260731a"
                   aria-label="Screen recording of entering June 18, 2021 in Agely and choosing the Cousins group."
                 >
-                  <source src="/assets/calculator-workflow.mp4?v=20260731a" type="video/mp4">
+                  <source type="video/mp4">
                 </video>
               </div>
               <div class="calculator-demo-layer" data-calculator-demo="age">
@@ -402,11 +381,11 @@
                   data-dark-poster="/assets/calculator-age-workflow-poster-dark.png?v=20260731a"
                   muted
                   playsinline
-                  preload="metadata"
+                  preload="none"
                   poster="/assets/calculator-age-workflow-poster.png?v=20260731a"
                   aria-label="Screen recording of entering an age of 1 year, 6 months in Agely and choosing the Cousins group."
                 >
-                  <source src="/assets/calculator-age-workflow.mp4?v=20260731a" type="video/mp4">
+                  <source type="video/mp4">
                 </video>
               </div>
               <img class="phone-bezel" src="/assets/iphone-17-pro-deep-blue-portrait.png?v=20260705i" alt="" width="1350" height="2760" loading="lazy" decoding="async" aria-hidden="true">
@@ -429,11 +408,10 @@
       <section class="final-cta section-bleed">
         <div class="site-shell final-cta-inner animate-on-scroll scale-in">
           <img src="/assets/agely-icon.png" alt="" width="76" height="76">
-          <h2>Keep track of the ages and birthdays that matter most.</h2>
+          <h2>The people you care about keep growing. Agely keeps up.</h2>
           <div class="hero-actions" data-availability-sentinel>
             <!-- APP_STORE_URL -->
-            <span class="availability-badge" aria-label="Agely is coming soon to the App Store">
-              <span class="availability-dot" aria-hidden="true"></span>
+            <span class="availability-badge final-availability" aria-label="Agely is coming soon to the App Store">
               Coming soon to the App Store
             </span>
           </div>
@@ -458,6 +436,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/animations.js?v=20260731a" defer></script>
+    <script src="/assets/animations.js?v=20261105a" defer></script>
   </body>
 </html>
